@@ -23,7 +23,7 @@ export default {
   name: 'NavigationMenu'
 }
 </script>
-<style>
+<style scoped>
 
 nav {
   padding: 30px;
