@@ -13,7 +13,9 @@
       <br>
       <router-link to="/projects">Projects</router-link>
       <br>
-      <router-link to="/Contact">Contact</router-link>
+      <router-link to="/ontact">Contact</router-link>
+      <br>
+      <router-link to="/login">Login</router-link>
       <br>
     </nav>
   </div>
