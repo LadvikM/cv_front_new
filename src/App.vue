@@ -4,8 +4,33 @@
     <router-view class="router"/>
     <contact-details></contact-details>
   </div>
-</template>
 
+</template>
+<script>
+import NavigationMenu from "@/components/NavigationMenu.vue";
+import ContactDetails from "@/components/contactdetails/ContactsDetails.vue";
+
+export default {
+  components: {ContactDetails, NavigationMenu},
+  watch: {
+    didAutoLogout(curValue, oldValue) {
+      if (curValue && curValue !== oldValue) {
+        this.$router.replace({name: 'home-view'});
+      }
+    }
+  },
+  computed: {
+    didAutoLogout() {
+      return this.$store.getters.didAutoLogout;
+    }
+  },
+  created() {
+    this.$store.dispatch('autoLogin')
+  }
+
+
+}
+</script>
 <style>
 
 #app {
@@ -25,6 +50,7 @@
 
 
 }
+
 .container {
   display: grid;
   grid-template-columns: 25% 55% 20%; /*Column width*/
@@ -41,10 +67,5 @@
 }
 
 
-
-
 </style>
 
-<script setup>
-import NavigationMenu from "@/components/NavigationMenu.vue";
-import ContactDetails from "@/components/contactdetails/ContactsDetails.vue";</script>

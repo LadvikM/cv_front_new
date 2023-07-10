@@ -2,7 +2,7 @@
   <div>
     <base-dialog :show="!!error" title="An error occurred!" @close="handleError"><p>{{ error }}</p></base-dialog>
 
-    <base-dialog :show="isLoading" title="Please wait" fixed>
+    <base-dialog :show="isLoading" title="Please wait. Loading..." fixed>
       <base-spinner></base-spinner>
     </base-dialog>
     <base-card>
@@ -28,6 +28,7 @@ import BaseButton from "@/ui/BaseButton.vue";
 import BaseCard from "@/ui/BaseCard.vue";
 import BaseDialog from "@/ui/BaseDialog.vue";
 import BaseSpinner from "@/ui/BaseSpinner.vue";
+
 
 
 export default {
@@ -57,21 +58,22 @@ export default {
         return;
       }
       this.isLoading = true;
+      const payload = {
+        email: this.email,
+        password: this.password,
+      }
       try {
         if (this.mode === 'login') {
-          // send login request
+          await this.$store.dispatch('login', payload )
         } else {
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password,
-          })
+          await this.$store.dispatch('signup', payload)
         }
+        this.$router.replace({name: 'home-view'})
       } catch (error) {
-
         this.error = error.message || 'Something went wrong. :) Try again later '
       }
-
       this.isLoading = false;
+
     },
     switchMode() {
       if (this.mode === 'login') {

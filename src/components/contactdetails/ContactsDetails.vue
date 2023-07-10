@@ -2,8 +2,10 @@
   <div class="container">
     <edit-contact-details v-if="isEdit" @cancel-form-submit="cancelSubmit"
                           :linkedin="contactDetails"></edit-contact-details>
+<!--todo Make layout of form look nicer once opened-->
+<!--    todo Prepopulate fields when info is not missing-->
   <ul v-if="!isEdit">
-    <li>
+    <li v-if="isLoggedIn">
       <a @click="toggleEdit">
         <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
       </a>
@@ -18,6 +20,7 @@
         <font-awesome-icon icon="fa-brands fa-github"/>
       </a>
     </li>
+<!--    todo Make email and phone number to appear next to icon not under-->
     <li>
       <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
       <transition name="phone-email">
@@ -59,6 +62,11 @@ export default {
           },
 
 
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {
