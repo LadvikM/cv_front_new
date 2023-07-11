@@ -3,7 +3,7 @@
     <edit-contact-details v-if="isEdit" @cancel-form-submit="cancelSubmit"
                           :linkedin="contactDetails"></edit-contact-details>
 <!--todo Make layout of form look nicer once opened-->
-<!--    todo Prepopulate fields when info is not missing-->
+<!--    todo Prepopulate fields when info is not empty-->
   <ul v-if="!isEdit">
     <li v-if="isLoggedIn">
       <a @click="toggleEdit">
@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+
 import EditContactDetails from "@/components/contactdetails/EditContactDetails.vue";
 
 export default {
@@ -81,18 +81,27 @@ export default {
       this.email = '';
       this.isEdit = false;
     },
-
-
-    getContactDetails() {
-      axios.get('https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json',).then((response) => {
-
-
-        this.contactDetails = response.data;
-
-
-      })
-
+    getContactDetails: function () {
+      this.$http.get("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json")
+          .then(response => {
+            this.contactDetails = response.data;
+          })
+          .catch(error => {
+            console.log(error)
+          })
     },
+
+
+    // getContactDetails() {
+    //   axios.get('https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json',).then((response) => {
+    //
+    //
+    //     this.contactDetails = response.data;
+    //
+    //
+    //   })
+    //
+    // },
 
 
   },

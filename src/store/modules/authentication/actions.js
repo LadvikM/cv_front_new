@@ -2,6 +2,8 @@ import axios from "axios";
 
 let timer;
 export default {
+
+
     async authorization(context, payload) {
         const mode = payload.mode;
         let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdSX4WKcnk8B8yOThVu14tOkmmHLdGZk8';

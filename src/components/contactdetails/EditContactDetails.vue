@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 
 
 export default {
@@ -60,11 +60,16 @@ export default {
     cancelFormSubmit() {
       this.$emit('cancelFormSubmit')
     },
-    submitForm() {
-      axios.put('https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json', this.enteredData).then(
-          (response) => console.log(response)
-      )
+    submitForm: function () {
+      this.$http.put("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json", this.enteredData
+      ).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     },
+
+
   },
 }
 </script>
