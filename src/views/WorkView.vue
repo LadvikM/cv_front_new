@@ -3,7 +3,7 @@
   <base-card>
     <div>
       <button @click="toggleEdit">Add Work Experience</button>
-      <add-work-experience v-if="isEdit"></add-work-experience>
+      <add-work-experience v-if="isEdit" @workExperienceSubmitted="this.isEdit = false"></add-work-experience>
       <work-experience v-else></work-experience>
 
 

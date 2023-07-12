@@ -1,44 +1,48 @@
 <template>
 
-  <!--  todo Add validation to forms-->
-  <!--  todo Add feedback on successful and unsuccessful responses-->
-  <!--  todo Make it pretty-->
+  <!--  TODO Add feedback on successful and unsuccessful responses-->
+  <!--  TODO Make it pretty-->
   <div>
-    <h1>Edit your work experience</h1>
-    <form @submit.prevent="submitWorkExperiences">
-      <div>
+    <h1>Add work experience</h1>
+    <form @submit.prevent="validateInput">
+      <div class="form-control" :class="{invalid: isInvalid.companyName}">
         <label for="company-name">Company name</label>
-        <input type="text" id="company-name" v-model="companyName">
+        <input type="text" id="company-name" v-model.trim="companyName">
+        <p v-if="isInvalid.companyName">Field must not be empty! Please enter company name.</p>
       </div>
-      <div>
+      <div class="form-control" :class="{invalid: isInvalid.location}">
         <label for="location">Location</label>
-        <input type="text" id="location" v-model="location">
+        <input type="text" id="location" v-model.trim="location">
+        <p v-if="isInvalid.location">Field must not be empty! Please enter your work location.</p>
+      </div>
+      <div v-for="(position, index) in positions" :key="index">
+        <div class="form-control" :class="{invalid: isInvalid.positions[index].positionName}">
+          <label :for="'position-' + index">Position name</label>
+          <input type="text" :id="'position' + index" v-model="positions[index].positionName">
+          <p v-if="isInvalid.positions[index].position">Field must not be empty. Please enter your position. </p>
+        </div>
+        <div class="form-control" :class="{invalid: isInvalid.positions[index].startDate}">
+          <label :for="'start-date-' + index">Start Date</label>
+          <input type="date"  :id="'start-date-' + index" v-model.trim="positions[index].startDate">
+          <p v-if="isInvalid.positions[index].startDate">Field can not be empty! Please enter start date.</p>
+        </div>
+        <div class="form-control" :class="{invalid: isInvalid.positions[index].endDate}">
+          <label :for="'end-date-' + index">End Date</label>
+          <input type="date"  :id="'end-date-' + index" v-model.trim="positions[index].endDate">
+          <p v-if="isInvalid.positions[index].endDate">End date can not be before start date! Please check your entries.</p>
+        </div>
+        <div class="form-control" :class="{invalid: isInvalid.positions[index].description}">
+          <label :for="'description-' + index">Description</label>
+          <textarea rows="5" :id="'description-' + index" v-model.trim="positions[index].description"></textarea>
+          <p v-if="isInvalid.positions[index].description">Please enter description of your work duties.</p>
+        </div>
+
+
       </div>
 
-      <div v-for="position in positions" :key="position.id">
-
-        <div>
-
-        </div>
-        <div>
-          <label for="position">Position name</label>
-          <input type="text" id="position" v-model="position.positionName">
-        </div>
-        <div>
-          <label for="start-date">Start Date</label>
-          <input type="date" id="start-date" v-model="position.startDate">
-        </div>
-        <div>
-          <label for="end-date">End Date</label>
-          <input type="date" id="end-date" v-model="position.endDate">
-        </div>
-        <div>
-          <label for="description">Work Description</label>
-          <textarea id="description" rows="5" v-model="position.description"></textarea>
-        </div>
-      </div>
       <button type="button" @click="addAdditionalPosition">Add additional position</button>
       <button type="submit">Submit</button>
+
     </form>
   </div>
 
@@ -48,15 +52,25 @@
 
 
 export default {
-  name: "EditWorkExperience",
-  props: ['work-experience'],
+  name: "AddWorkExperience",
+
   data() {
     return {
-      positionId: 0,
+      isInvalid: {
+        companyName: false,
+        location: false,
+        positions: [{
+          positionName: false,
+          startDate: false,
+          endDate: false,
+          description: false,
+        }]
+      },
+
       companyName: '',
       location: '',
       positions: [{
-        id: 0,
+
         positionName: '',
         startDate: '',
         endDate: '',
@@ -67,12 +81,41 @@ export default {
   },
 
 
-
   methods: {
+    validateInput() {
+      this.isInvalid.companyName = this.companyName === '';
+      this.isInvalid.location = this.location === '';
+      this.positions.forEach((position, index) => {
+            this.isInvalid.positions[index].positionName = position.positionName === '';
+            this.isInvalid.positions[index].startDate = position.startDate === '';
+            if (position.startDate > position.endDate && position.endDate !== '') {
+              this.isInvalid.positions[index].endDate = true;
+            }
+            this.isInvalid.positions[index].description = position.description === '';
+          }
+      );
+      if (this.isInvalid.companyName ||
+          this.isInvalid.location ||
+          this.isInvalid.positions.some((position) => position.positionName) ||
+          this.isInvalid.positions.some((position) => position.startDate) ||
+          this.isInvalid.positions.some((position) => position.endDate) ||
+          this.isInvalid.positions.some((position) => position.description)) {
+        return;
+
+      } else {
+        this.submitWorkExperiences()
+      }
+
+
+
+    },
 
     addAdditionalPosition: function () {
-      this.positionId++;
-      this.positions.push({ id: this.positionId, positionName: '', startDate: '', endDate: '', description: ''
+      this.isInvalid.positions.push({
+        positionName: false,
+      })
+      this.positions.push({
+        positionName: '', startDate: '', endDate: '', description: ''
 
       });
 
@@ -85,7 +128,10 @@ export default {
 
 
       }).then(response => {
-        console.log(response.data)
+
+         this.$emit('workExperienceSubmitted')
+
+        console.log(response)
       }).catch(error => {
         console.log(error)
       })
@@ -102,4 +148,18 @@ export default {
 
 <style scoped>
 
+.form-control {
+  margin: 0.5rem 0;
+}
+
+.form-control.invalid input {
+  border-color: red;
+}
+.form-control.invalid textarea {
+  border-color: red;
+}
+
+.form-control.invalid label {
+  color: red;
+}
 </style>

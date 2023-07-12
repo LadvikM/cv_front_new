@@ -1,7 +1,10 @@
 <template>
+<!--  TODO - Add some message when work experience is empty or problem with server-->
+<!--  TODO - Add option to DELETE entries-->
+<!--  TODO - Add option to EDIT entries-->
   <table v-for="workExperience in workExperiences" :key="workExperience.experienceId">
     <thead class="table-header">
-    <tr >
+    <tr>
       <td class="company-name">
         <h2>{{ workExperience.companyName }}</h2>
       </td>
@@ -11,15 +14,17 @@
     <tr>
       <td class="location">{{ workExperience.location }}</td>
     </tr>
-    <div v-for="position in workExperience.positions" :key="position.id">
+
+    <table v-for="position in workExperience.positions" :key="position.id">
       <tr>
         <td class="position">{{ position.positionName }}</td>
-        <td class="to-from">{{ formatStartDate(position.startDate)}} - {{ formatEndDate(position.endDate) }}</td>
+        <td class="to-from">{{ formatStartDate(position.startDate) }} - {{ formatEndDate(position.endDate) }}</td>
       </tr>
       <tr>
         <td class="description" colspan="2">{{ position.description }}</td>
       </tr>
-    </div>
+    </table>
+
     </tbody>
   </table>
 
@@ -58,10 +63,7 @@ export default {
   created() {
     this.getWorkExperiences()
   },
-  computed: {
-
-
-  },
+  computed: {},
   methods: {
     formatEndDate(end) {
       return moment(end).format('MMMM YYYY')
@@ -74,7 +76,7 @@ export default {
     getWorkExperiences: function () {
       this.$http.get("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience.json")
           .then(response => {
-          this.workExperiences = response.data
+            this.workExperiences = response.data
             // for (const id in response.data) {
             //   this.workExperiences = response.data;
             //   this.workExperiences.experienceId = id;
@@ -100,21 +102,26 @@ export default {
   font-size: 1.5rem;
 
 }
+
 .location {
   border: yellow 1px solid;
 }
+
 .table-header {
   column-span: 2;
 }
+
 .position {
   border: red 1px solid;
-font-size: 1.3rem ;
+  font-size: 1.3rem;
 }
+
 .to-from {
   border: aqua 1px solid;
 }
-.description{
-  
+
+.description {
+
   border: coral 1px solid;
 }
 
