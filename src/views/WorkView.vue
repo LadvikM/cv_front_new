@@ -2,8 +2,8 @@
 
   <base-card>
     <div>
-      <button @click="toggleEdit">Edit</button>
-      <edit-work-experience v-if="isEdit"></edit-work-experience>
+      <button @click="toggleEdit">Add Work Experience</button>
+      <add-work-experience v-if="isEdit"></add-work-experience>
       <work-experience v-else></work-experience>
 
 
@@ -13,12 +13,12 @@
 
 <script>
 import BaseCard from "@/ui/BaseCard.vue";
-import EditWorkExperience from "@/components/work-experience/EditWorkExperience.vue";
+import AddWorkExperience from "@/components/work-experience/AddWorkExperience.vue";
 import WorkExperience from "@/components/work-experience/WorkExperience.vue";
 
 export default {
   name: "WorkView",
-  components: {WorkExperience, EditWorkExperience, BaseCard},
+  components: {WorkExperience, AddWorkExperience, BaseCard},
   data() {
     return {
       isEdit: false,
