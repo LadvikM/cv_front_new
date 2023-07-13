@@ -43,7 +43,7 @@ import moment from 'moment'
 
 export default {
   name: "WorkExperience",
-
+  emits: ['force-rerender'],
 
   data() {
     return {
@@ -74,10 +74,11 @@ export default {
 
     deleteEntry: function (key) {
       this.$http.delete(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${key}.json`)
+          // eslint-disable-next-line no-unused-vars
           .then(response => {
 
 
-            console.log(response)
+            this.$emit('force-rerender')
           })
           .catch(error => {
 

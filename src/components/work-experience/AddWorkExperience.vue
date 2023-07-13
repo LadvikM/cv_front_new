@@ -88,11 +88,7 @@ export default {
       this.positions.forEach((position, index) => {
             this.isInvalid.positions[index].positionName = position.positionName === '';
             this.isInvalid.positions[index].startDate = position.startDate === '';
-            if (position.startDate > position.endDate && position.endDate !== '') {
-              this.isInvalid.positions[index].endDate = true;
-            } else {
-              this.isInvalid.positions[index].endDate = false;
-            }
+            this.isInvalid.positions[index].endDate = position.startDate > position.endDate && position.endDate !== '';
             this.isInvalid.positions[index].description = position.description === '';
           }
       );

@@ -4,7 +4,7 @@
     <div>
       <button @click="toggleEdit">Add Work Experience</button>
       <add-work-experience v-if="isAdd" @workExperienceSubmitted="this.isAdd = false"></add-work-experience>
-      <work-experience v-else></work-experience>
+      <work-experience v-else :key="componentKey" @force-rerender="forceRerender"></work-experience>
 
 
     </div>
@@ -22,11 +22,16 @@ export default {
   data() {
     return {
       isAdd: false,
+      componentKey: 0,
     }
   },
   methods: {
     toggleEdit() {
       this.isAdd = !this.isAdd;
+    },
+    forceRerender() {
+      this.componentKey += 1;
+
     }
   },
 
