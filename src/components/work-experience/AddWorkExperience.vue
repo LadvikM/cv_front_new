@@ -90,6 +90,8 @@ export default {
             this.isInvalid.positions[index].startDate = position.startDate === '';
             if (position.startDate > position.endDate && position.endDate !== '') {
               this.isInvalid.positions[index].endDate = true;
+            } else {
+              this.isInvalid.positions[index].endDate = false;
             }
             this.isInvalid.positions[index].description = position.description === '';
           }

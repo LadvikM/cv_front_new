@@ -1,40 +1,40 @@
 <template>
+<!--  TODO Make it pretty!-->
+<!--  TODO Make icons stay in position when clicked on email or phone-->
   <div class="container">
     <edit-contact-details v-if="isEdit" @cancel-form-submit="cancelSubmit"
                           :linkedin="contactDetails"></edit-contact-details>
-<!--todo Make layout of form look nicer once opened-->
-<!--    todo Prepopulate fields when info is not empty-->
-  <ul v-if="!isEdit">
-    <li v-if="isLoggedIn">
-      <a @click="toggleEdit">
-        <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
-      </a>
-    </li>
-    <li>
-      <a :href="'https://www.linkedin.com/in/' + this.contactDetails.linkedin">
-        <font-awesome-icon icon="fa-brands fa-linkedin-in"/>
-      </a>
-    </li>
-    <li>
-      <a :href="'https://github.com/' + this.contactDetails.github">
-        <font-awesome-icon icon="fa-brands fa-github"/>
-      </a>
-    </li>
-<!--    todo Make email and phone number to appear next to icon not under-->
-    <li>
-      <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
-      <transition name="phone-email">
-        <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
-      </transition>
-    </li>
-    <li>
-      <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
 
-      <transition name="phone-email">
-        <p v-if="showEmail">{{ this.contactDetails.email }}</p>
-      </transition>
-    </li>
-  </ul>
+    <ul class="contact-items" v-if="!isEdit">
+      <li class="contact-item" v-if="isLoggedIn">
+        <a @click="toggleEdit">
+          <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
+        </a>
+      </li>
+      <li class="contact-item">
+        <a :href="'https://www.linkedin.com/in/' + this.contactDetails.linkedin">
+          <font-awesome-icon icon="fa-brands fa-linkedin-in"/>
+        </a>
+      </li>
+      <li class="contact-item">
+        <a :href="'https://github.com/' + this.contactDetails.github">
+          <font-awesome-icon icon="fa-brands fa-github"/>
+        </a>
+      </li>
+
+      <li class="contact-item">
+        <transition name="phone-email">
+          <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
+        </transition>
+        <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
+      </li>
+      <li class="contact-item">
+        <transition name="phone-email">
+          <p v-if="showEmail">{{ this.contactDetails.email }}</p>
+        </transition>
+        <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
+      </li>
+    </ul>
 
 
   </div>
@@ -113,18 +113,21 @@ export default {
 <style scoped>
 
 .container {
-
+  width: 100%;
+  background-color: coral;
   display: flex;
   justify-content: center; /*aligns content horizontally center*/
   align-items: center; /*aligns content vertically center*/
-  border: red dashed 1px;
+
 
 }
+
 ul {
   font-size: 2rem;
   border: aqua solid 1px;
-  list-style-type: none;
+
 }
+
 ul p {
   font-size: 1.5rem;
 }
@@ -145,5 +148,18 @@ ul p {
   transition: all 1s ease;
 }
 
+.contact-item p {
+  display: inline-block;
+  margin: 0;
+}
+.contact-item {
+
+}
+.contact-items {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
 </style>

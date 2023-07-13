@@ -1,12 +1,15 @@
 <template>
-<!--  TODO - Add some message when work experience is empty or problem with server-->
-<!--  TODO - Add option to DELETE entries-->
-<!--  TODO - Add option to EDIT entries-->
-  <table v-for="workExperience in workExperiences" :key="workExperience.experienceId">
+  <!--  TODO - Add some message when work experience is empty or problem with server-->
+<!--    TODO - Add feedback on successful and unsuccessful deletes.-->
+  <!--  TODO - Add option to EDIT entries-->
+  <!--  TODO - Add loading screen-->
+<!--    TODO Make it pretty-->
+  <table v-for="workExperience in workExperiences" :key="workExperience.id">
+
     <thead class="table-header">
     <tr>
       <td class="company-name">
-        <h2>{{ workExperience.companyName }}</h2>
+        <h2>{{ workExperience.companyName }} </h2>
       </td>
     </tr>
     </thead>
@@ -23,9 +26,12 @@
       <tr>
         <td class="description" colspan="2">{{ position.description }}</td>
       </tr>
+
     </table>
 
     </tbody>
+    <button @click="deleteEntry(workExperience.id)">Delete Entry</button>
+    <button>Edit Entry</button>
   </table>
 
 
@@ -44,18 +50,18 @@ export default {
       formattedStartDate: '',
       formattedEndDate: '',
       workExperiences:
-          {
-            experienceId: '',
-            companyName: '',
-            location: '',
-            positions: [{
-              id: '',
-              positionName: '',
-              startDate: '',
-              endDate: '',
-              description: '',
-            }]
-          }
+        {
+          id: '',
+          companyName: '',
+          location: '',
+          positions: [{
+            id: '',
+            positionName: '',
+            startDate: '',
+            endDate: '',
+            description: '',
+          }]
+        }
 
 
     }
@@ -65,6 +71,21 @@ export default {
   },
   computed: {},
   methods: {
+
+    deleteEntry: function (key) {
+      this.$http.delete(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${key}.json`)
+          .then(response => {
+
+
+            console.log(response)
+          })
+          .catch(error => {
+
+            console.log(error)
+          })
+    },
+
+
     formatEndDate(end) {
       return moment(end).format('MMMM YYYY')
     },
@@ -76,15 +97,10 @@ export default {
     getWorkExperiences: function () {
       this.$http.get("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience.json")
           .then(response => {
-            this.workExperiences = response.data
-            // for (const id in response.data) {
-            //   this.workExperiences = response.data;
-            //   this.workExperiences.experienceId = id;
-            //
-            //
-            // }
-
-
+          this.workExperiences = response.data;
+          for (const key in response.data) {
+            this.workExperiences[key].id = key;
+          }
           }).catch(error => {
         console.log(error)
       })

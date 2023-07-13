@@ -39,29 +39,35 @@ export default {
   color: white;
 
 }
-
 * {
-  margin: 0;
+  box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+}
+.router::-webkit-scrollbar {
+  display: none; /*  Hide scrollbar, but keep functionality*/
+}
 .router {
-  border: yellow 1px solid;
+
+  overflow-y: scroll;
   width: 100%;
 
 
 }
-
+.container navigation-menu {
+  background-color: #42b983;
+}
 .container {
   display: grid;
-  grid-template-columns: 25% 55% 20%; /*Column width*/
+  grid-template-columns: 20% 60% 20%; /*Column width*/
   /*grid-gap: 10px; !* Add some spacing between columns *!*/
   justify-items: center;
   height: 100vmin;
 
   background-color: black;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+
 
 
 }
