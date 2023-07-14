@@ -1,8 +1,9 @@
 <template>
 
-  <!--  TODO Add feedback on successful and unsuccessful responses-->
+
   <!--  TODO Make it pretty-->
   <div>
+
     <h1>Add work experience</h1>
     <form @submit.prevent="validateInput">
       <div class="form-control" :class="{invalid: isInvalid.companyName}">
@@ -15,7 +16,7 @@
         <input type="text" id="location" v-model.trim="location">
         <p v-if="isInvalid.location">Field must not be empty! Please enter your work location.</p>
       </div>
-      <div v-for="(position, index) in positions" :key="index">
+      <div v-for="(position, index) in positions" :key="position.key">
         <div class="form-control" :class="{invalid: isInvalid.positions[index].positionName}">
           <label :for="'position' + index">Position name</label>
           <input type="text" :id="'position' + index" v-model="positions[index].positionName">
@@ -23,13 +24,14 @@
         </div>
         <div class="form-control" :class="{invalid: isInvalid.positions[index].startDate}">
           <label :for="'start-date' + index">Start Date</label>
-          <input type="date"  :id="'start-date' + index" v-model.trim="positions[index].startDate">
+          <input type="date" :id="'start-date' + index" v-model.trim="positions[index].startDate">
           <p v-if="isInvalid.positions[index].startDate">Field can not be empty! Please enter start date.</p>
         </div>
         <div class="form-control" :class="{invalid: isInvalid.positions[index].endDate}">
           <label :for="'end-date' + index">End Date</label>
-          <input type="date"  :id="'end-date' + index" v-model.trim="positions[index].endDate">
-          <p v-if="isInvalid.positions[index].endDate">End date can not be before start date! Please check your entries.</p>
+          <input type="date" :id="'end-date' + index" v-model.trim="positions[index].endDate">
+          <p v-if="isInvalid.positions[index].endDate">End date can not be before start date! Please check your
+            entries.</p>
         </div>
         <div class="form-control" :class="{invalid: isInvalid.positions[index].description}">
           <label :for="'description' + index">Description</label>
@@ -45,17 +47,29 @@
 
     </form>
   </div>
-
+<alert-dialog :alert="this.alert" @close-alert="closeAlert"></alert-dialog>
 </template>
 
 <script>
 
 
+
+import AlertDialog from "@/ui/AlertDialog.vue";
+
 export default {
   name: "AddWorkExperience",
+  components: {AlertDialog},
+
+  emits: ['work-experience-submitted'],
 
   data() {
+
     return {
+      alert: {
+        show: false,
+        alertMessage: '',
+        isSuccess: null,
+      },
       isInvalid: {
         companyName: false,
         location: false,
@@ -82,6 +96,19 @@ export default {
 
 
   methods: {
+    autoClose() {
+      setTimeout( () => {
+        this.alert.show = false;
+        this.alert.alertMessage = '';
+        this.alert.isSuccess = null;
+      }, 5000)
+    },
+    closeAlert(data) {
+
+      this.alert.show = data.alertProps.show;
+      this.alert.alertMessage = data.alertProps.alertMessage;
+      this.alert.isSuccess = data.alertProps.isSuccess;
+    },
     validateInput() {
       this.isInvalid.companyName = this.companyName === '';
       this.isInvalid.location = this.location === '';
@@ -105,7 +132,6 @@ export default {
       }
 
 
-
     },
 
     addAdditionalPosition: function () {
@@ -125,13 +151,19 @@ export default {
         positions: this.positions,
 
 
+        // eslint-disable-next-line no-unused-vars
       }).then(response => {
+        this.alert.show = true;
+        this.alert.alertMessage = 'Work experience was added successfully!'
+        this.alert.isSuccess = true;
+        this.autoClose();
 
-         this.$emit('workExperienceSubmitted')
-
-        console.log(response)
       }).catch(error => {
-        console.log(error)
+        this.alert.show = true;
+        this.alert.alertMessage = 'Adding work experience was unsuccessful. Try again.'
+        this.alert.isSuccess = false;
+        this.autoClose();
+        console.log(error);
       })
     },
 
@@ -153,6 +185,7 @@ export default {
 .form-control.invalid input {
   border-color: red;
 }
+
 .form-control.invalid textarea {
   border-color: red;
 }

@@ -3,6 +3,7 @@
     <navigation-menu></navigation-menu>
     <router-view class="router"/>
     <contact-details></contact-details>
+
   </div>
 
 </template>

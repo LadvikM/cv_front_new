@@ -1,5 +1,8 @@
 import { createStore } from 'vuex'
 import authModule from './modules/authentication/index'
+
+
+
 export default createStore({
   state: {
   },

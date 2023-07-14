@@ -43,6 +43,7 @@
 
 import EditContactDetails from "@/components/contactdetails/EditContactDetails.vue";
 
+
 export default {
   name: 'ContactDetails',
   components: {EditContactDetails},
@@ -92,16 +93,6 @@ export default {
     },
 
 
-    // getContactDetails() {
-    //   axios.get('https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json',).then((response) => {
-    //
-    //
-    //     this.contactDetails = response.data;
-    //
-    //
-    //   })
-    //
-    // },
 
 
   },

@@ -1,13 +1,13 @@
 <template>
-  <!--  TODO - Add some message when work experience is empty or problem with server-->
-<!--    TODO - Add feedback on successful and unsuccessful deletes.-->
   <!--  TODO - Add option to EDIT entries-->
+  <!--  TODO Make it pretty-->
+  <!--  TODO Refactor-->
 
-<!--    TODO Make it pretty-->
 
   <h1>My work experience.</h1>
-  <base-spinner v-if="isLoading"></base-spinner>
-  <table v-else v-for="workExperience in workExperiences" :key="workExperience.id">
+  <h2 v-if="error">{{ this.error }}</h2>
+  <base-spinner v-if="isLoading && !error"></base-spinner>
+  <table v-else-if="!isLoading && !error" v-for="workExperience in workExperiences" :key="workExperience.id">
 
     <thead class="table-header">
     <tr>
@@ -45,6 +45,7 @@
 import moment from 'moment'
 import BaseSpinner from "@/ui/BaseSpinner.vue";
 
+
 export default {
   name: "WorkExperience",
   components: {BaseSpinner},
@@ -52,22 +53,23 @@ export default {
 
   data() {
     return {
+      error: null,
       isLoading: false,
       formattedStartDate: '',
       formattedEndDate: '',
       workExperiences:
-        {
-          id: '',
-          companyName: '',
-          location: '',
-          positions: [{
+          {
             id: '',
-            positionName: '',
-            startDate: '',
-            endDate: '',
-            description: '',
-          }]
-        }
+            companyName: '',
+            location: '',
+            positions: [{
+              id: '',
+              positionName: '',
+              startDate: '',
+              endDate: '',
+              description: '',
+            }]
+          }
 
 
     }
@@ -77,6 +79,15 @@ export default {
   },
   computed: {},
   methods: {
+
+    // isWorkExperiencesEmpty() {
+    //   const obj = this.workExperiences;
+    //   if (Object.keys(obj).length === 0) {
+    //     this.error = 'Oh my! I must have deleted all entries.'
+    //     return true;
+    //   }
+    //
+    // },
 
     deleteEntry: function (key) {
       this.$http.delete(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${key}.json`)
@@ -105,13 +116,19 @@ export default {
       this.isLoading = true;
       this.$http.get("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience.json")
           .then(response => {
-          this.workExperiences = response.data;
-          for (const key in response.data) {
-            this.workExperiences[key].id = key;
-          }
-          this.isLoading = false;
+            if (response.data === null) {
+              this.error = 'Oh no! I must have deleted all entries! '
+            } else {
+              this.workExperiences = response.data;
+              for (const key in response.data) {
+                this.workExperiences[key].id = key;
+              }
+            }
+
+            this.isLoading = false;
+            // eslint-disable-next-line no-unused-vars
           }).catch(error => {
-        console.log(error)
+        this.error = 'Something went wrong. I have definitely worked before!'
       })
     },
 
