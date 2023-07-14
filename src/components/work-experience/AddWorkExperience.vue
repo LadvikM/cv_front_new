@@ -17,23 +17,23 @@
       </div>
       <div v-for="(position, index) in positions" :key="index">
         <div class="form-control" :class="{invalid: isInvalid.positions[index].positionName}">
-          <label :for="'position-' + index">Position name</label>
+          <label :for="'position' + index">Position name</label>
           <input type="text" :id="'position' + index" v-model="positions[index].positionName">
           <p v-if="isInvalid.positions[index].position">Field must not be empty. Please enter your position. </p>
         </div>
         <div class="form-control" :class="{invalid: isInvalid.positions[index].startDate}">
-          <label :for="'start-date-' + index">Start Date</label>
-          <input type="date"  :id="'start-date-' + index" v-model.trim="positions[index].startDate">
+          <label :for="'start-date' + index">Start Date</label>
+          <input type="date"  :id="'start-date' + index" v-model.trim="positions[index].startDate">
           <p v-if="isInvalid.positions[index].startDate">Field can not be empty! Please enter start date.</p>
         </div>
         <div class="form-control" :class="{invalid: isInvalid.positions[index].endDate}">
-          <label :for="'end-date-' + index">End Date</label>
-          <input type="date"  :id="'end-date-' + index" v-model.trim="positions[index].endDate">
+          <label :for="'end-date' + index">End Date</label>
+          <input type="date"  :id="'end-date' + index" v-model.trim="positions[index].endDate">
           <p v-if="isInvalid.positions[index].endDate">End date can not be before start date! Please check your entries.</p>
         </div>
         <div class="form-control" :class="{invalid: isInvalid.positions[index].description}">
-          <label :for="'description-' + index">Description</label>
-          <textarea rows="5" :id="'description-' + index" v-model.trim="positions[index].description"></textarea>
+          <label :for="'description' + index">Description</label>
+          <textarea rows="5" :id="'description' + index" v-model.trim="positions[index].description"></textarea>
           <p v-if="isInvalid.positions[index].description">Please enter description of your work duties.</p>
         </div>
 

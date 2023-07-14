@@ -2,9 +2,12 @@
   <!--  TODO - Add some message when work experience is empty or problem with server-->
 <!--    TODO - Add feedback on successful and unsuccessful deletes.-->
   <!--  TODO - Add option to EDIT entries-->
-  <!--  TODO - Add loading screen-->
+
 <!--    TODO Make it pretty-->
-  <table v-for="workExperience in workExperiences" :key="workExperience.id">
+
+  <h1>My work experience.</h1>
+  <base-spinner v-if="isLoading"></base-spinner>
+  <table v-else v-for="workExperience in workExperiences" :key="workExperience.id">
 
     <thead class="table-header">
     <tr>
@@ -40,13 +43,16 @@
 <script>
 
 import moment from 'moment'
+import BaseSpinner from "@/ui/BaseSpinner.vue";
 
 export default {
   name: "WorkExperience",
+  components: {BaseSpinner},
   emits: ['force-rerender'],
 
   data() {
     return {
+      isLoading: false,
       formattedStartDate: '',
       formattedEndDate: '',
       workExperiences:
@@ -96,12 +102,14 @@ export default {
     },
 
     getWorkExperiences: function () {
+      this.isLoading = true;
       this.$http.get("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience.json")
           .then(response => {
           this.workExperiences = response.data;
           for (const key in response.data) {
             this.workExperiences[key].id = key;
           }
+          this.isLoading = false;
           }).catch(error => {
         console.log(error)
       })
