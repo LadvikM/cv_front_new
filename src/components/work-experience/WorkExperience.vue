@@ -1,7 +1,7 @@
 <template>
-  <!--  TODO - Add option to EDIT entries-->
+  <!--  TODO Arrange entries by date.-->
+
   <!--  TODO Make it pretty-->
-  <!--  TODO Refactor-->
 
 
   <h1>My work experience.</h1>
@@ -34,7 +34,7 @@
 
     </tbody>
     <button @click="deleteEntry(workExperience.id)">Delete Entry</button>
-    <button>Edit Entry</button>
+    <button @click="editEntry(workExperience.id)">Edit Entry</button>
   </table>
 
 
@@ -49,10 +49,11 @@ import BaseSpinner from "@/ui/BaseSpinner.vue";
 export default {
   name: "WorkExperience",
   components: {BaseSpinner},
-  emits: ['force-rerender'],
+  emits: ['forceRerender', 'editEntry'],
 
   data() {
     return {
+      workExperienceId: '',
       error: null,
       isLoading: false,
       formattedStartDate: '',
@@ -79,15 +80,13 @@ export default {
   },
   computed: {},
   methods: {
+    editEntry(workExperienceId) {
+      this.workExperienceId = workExperienceId;
+      this.$emit('editEntry', this.workExperienceId);
 
-    // isWorkExperiencesEmpty() {
-    //   const obj = this.workExperiences;
-    //   if (Object.keys(obj).length === 0) {
-    //     this.error = 'Oh my! I must have deleted all entries.'
-    //     return true;
-    //   }
-    //
-    // },
+
+    },
+
 
     deleteEntry: function (key) {
       this.$http.delete(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${key}.json`)
@@ -95,7 +94,7 @@ export default {
           .then(response => {
 
 
-            this.$emit('force-rerender')
+            this.$emit('forceRerender')
           })
           .catch(error => {
 

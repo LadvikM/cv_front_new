@@ -15,7 +15,6 @@
       <router-link to="/contact">Contact</router-link>
       <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
       <button v-if="isLoggedIn" @click='logout'>Logout</button>
-<!--todo Logout button to same font as router link-->
     </nav>
   </div>
 </template>

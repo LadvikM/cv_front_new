@@ -89,7 +89,7 @@ export default {
         })
     },
     autoLogout(context) {
-        context.dispatch('logout');
+        context.dispatch('logout')
         context.commit('didAutoLogout');
     },
 

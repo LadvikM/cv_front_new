@@ -1,7 +1,7 @@
 <template>
 
-
-  <!--  TODO Make it pretty-->
+  <!--TODO Emit event on successful submit and display work experience component-->
+  <!--TODO Make it pretty-->
   <div>
 
     <h1>Add work experience</h1>
@@ -16,6 +16,7 @@
         <input type="text" id="location" v-model.trim="location">
         <p v-if="isInvalid.location">Field must not be empty! Please enter your work location.</p>
       </div>
+
       <div v-for="(position, index) in positions" :key="position.key">
         <div class="form-control" :class="{invalid: isInvalid.positions[index].positionName}">
           <label :for="'position' + index">Position name</label>
@@ -43,28 +44,30 @@
       </div>
 
       <button type="button" @click="addAdditionalPosition">Add additional position</button>
-      <button type="submit">Submit</button>
+      <button v-if="isEdit" type="submit">Submit Edit</button>
+      <button v-else type="submit">Submit</button>
 
     </form>
   </div>
-<alert-dialog :alert="this.alert" @close-alert="closeAlert"></alert-dialog>
+  <alert-dialog :alert="this.alert" @close-alert="closeAlert"></alert-dialog>
 </template>
 
 <script>
 
 
-
 import AlertDialog from "@/ui/AlertDialog.vue";
 
 export default {
-  name: "AddWorkExperience",
+  name: "WorkExperienceForm",
   components: {AlertDialog},
-
   emits: ['work-experience-submitted'],
+  inject: ['editKey', 'edit'],
 
   data() {
 
     return {
+      key: this.editKey,
+      isEdit: this.edit,
       alert: {
         show: false,
         alertMessage: '',
@@ -93,11 +96,62 @@ export default {
 
     }
   },
-
+  created() {
+    if (this.isEdit) {
+      this.getWorkExperience(this.key)
+    }
+  },
 
   methods: {
+
+    submitEdit: function () {
+      this.$http.patch(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${this.key}.json`, {
+            companyName: this.companyName,
+            location: this.location,
+            positions: this.positions,
+          }
+          // eslint-disable-next-line no-unused-vars
+      ).then(response => {
+        this.alert.show = true;
+        this.alert.alertMessage = 'Work experience was edited successfully!'
+        this.alert.isSuccess = true;
+        this.autoClose();
+
+
+      }).catch(error => {
+        console.log(error)
+        this.alert.show = true;
+        this.alert.alertMessage = 'Editing work experience was unsuccessful. Try again.'
+        this.alert.isSuccess = false;
+        this.autoClose();
+      })
+    },
+
+
+    getWorkExperience: function (key) {
+      this.$http.get(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${key}.json`)
+          .then(response => {
+            this.companyName = response.data.companyName;
+            this.location = response.data.location
+            this.positions = response.data.positions
+            this.isInvalid.positions = this.positions.map(() => ({
+              positionName: false,
+              startDate: false,
+              endDate: false,
+              description: false,
+            }));
+          }).catch(error => {
+        this.alert.show = true;
+        this.alert.alertMessage = 'Pre-populating fields failed. Try again.'
+        this.alert.isSuccess = false;
+        this.autoClose();
+
+        console.log(error)
+      })
+    }
+    ,
     autoClose() {
-      setTimeout( () => {
+      setTimeout(() => {
         this.alert.show = false;
         this.alert.alertMessage = '';
         this.alert.isSuccess = null;
@@ -112,6 +166,8 @@ export default {
     validateInput() {
       this.isInvalid.companyName = this.companyName === '';
       this.isInvalid.location = this.location === '';
+
+
       this.positions.forEach((position, index) => {
             this.isInvalid.positions[index].positionName = position.positionName === '';
             this.isInvalid.positions[index].startDate = position.startDate === '';
@@ -128,7 +184,12 @@ export default {
         return;
 
       } else {
-        this.submitWorkExperiences()
+        if (this.isEdit) {
+          this.submitEdit()
+        } else {
+          this.submitWorkExperiences()
+        }
+
       }
 
 
@@ -157,6 +218,7 @@ export default {
         this.alert.alertMessage = 'Work experience was added successfully!'
         this.alert.isSuccess = true;
         this.autoClose();
+
 
       }).catch(error => {
         this.alert.show = true;
