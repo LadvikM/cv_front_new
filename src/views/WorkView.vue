@@ -2,7 +2,7 @@
 
   <base-card>
     <div>
-      <button @click="toggleForm">Add Work Experience</button>
+      <button @click="toggleForm" v-if="isLoggedIn">Add Work Experience</button>
       <work-experience-form v-if="showForm" @workExperienceSubmitted="toggleForm"></work-experience-form>
 
 
@@ -28,6 +28,11 @@ export default {
       isEdit: false,
       componentKey: 0,
       editKey: '',
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   provide() {

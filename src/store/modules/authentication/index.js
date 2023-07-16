@@ -8,6 +8,7 @@ state() {
         userId: null,
         token: null,
         didAutoLogout: false,
+
     }
 },
     mutations,

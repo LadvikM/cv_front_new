@@ -33,8 +33,8 @@
     </table>
 
     </tbody>
-    <button @click="deleteEntry(workExperience.id)">Delete Entry</button>
-    <button @click="editEntry(workExperience.id)">Edit Entry</button>
+    <button @click="deleteEntry(workExperience.id)" v-if="isLoggedIn">Delete Entry</button>
+    <button @click="editEntry(workExperience.id)" v-if="isLoggedIn">Edit Entry</button>
   </table>
 
 
@@ -78,7 +78,11 @@ export default {
   created() {
     this.getWorkExperiences()
   },
-  computed: {},
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
+    }
+  },
   methods: {
     editEntry(workExperienceId) {
       this.workExperienceId = workExperienceId;
@@ -104,7 +108,11 @@ export default {
 
 
     formatEndDate(end) {
-      return moment(end).format('MMMM YYYY')
+      if (end === '') {
+        return 'Present'
+      } else {
+        return moment(end).format('MMMM YYYY')
+      }
     },
 
     formatStartDate(start) {

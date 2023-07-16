@@ -30,7 +30,6 @@ import BaseDialog from "@/ui/BaseDialog.vue";
 import BaseSpinner from "@/ui/BaseSpinner.vue";
 
 
-
 export default {
   name: "UserLogin",
   components: {BaseSpinner, BaseDialog, BaseCard, BaseButton},
@@ -52,7 +51,7 @@ export default {
     handleError() {
       this.error = null;
     },
-    async submitForm() {
+    submitForm() {
       if (this.email === '' || this.password.length < 6) {
         this.formIsValid = false;
         return;
@@ -63,15 +62,20 @@ export default {
         password: this.password,
       }
       try {
-        if (this.mode === 'login') {
-          await this.$store.dispatch('login', payload )
+        if (this.mode === 'signup') {
+          this.$store.dispatch('signup', payload)
+
         } else {
-          await this.$store.dispatch('signup', payload)
+          this.$store.dispatch('login', payload)
+          this.$router.replace({name: 'home-view'})
         }
-        this.$router.replace({name: 'home-view'})
-      } catch (error) {
-        this.error = error.message || 'Something went wrong. :) Try again later '
+      } catch (e) {
+        this.error = 'Something went wrong.'
+        console.log(e)
       }
+
+
+
       this.isLoading = false;
 
     },

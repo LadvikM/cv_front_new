@@ -1,4 +1,5 @@
 <template>
+
   <form @submit="submitForm">
     <div class="form-control">
       <label for="linkedin">Linked in</label>
