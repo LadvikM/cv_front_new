@@ -1,34 +1,30 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <button @click="getUserInfo">Get info</button>
+    <img src="" alt="Here should be Mihkel's photo">
+
+    <h1>This is an about page header</h1>
+    <p>And here will longer description</p>
   </div>
 </template>
 <script>
 
 
-import axios from "axios";
+
 
 export default {
   name: 'AboutView',
   data: function () {
     return {
-      userId: 1,
-      userInfo: {
-        description: '',
-        firstname: '',
-        lastname: ''
-      }
+      image: '',
+      header: '',
+      longDescription: ''
     }
   },
   methods: {
 
 
-    getUserInfo: function () {
-      axios.get("/about", {params: {userId: this.userId}} )
-          .then((response) => {console.log(response)})
-          .catch((error) => {console.log(error)})
-    },
+
+
   },
 
 }

@@ -1,5 +1,5 @@
 <template>
-<!--  TODO Add Auto close countdown-->
+<!--TODO  Add Auto close countdown-->
 <!--TODO Add transition-->
 <!--TODO Make it pretty-->
     <dialog :class="alert.isSuccess ? 'success' : 'fail'" open v-if="alert.show" >
@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "AlertDialog",
-  emits: ['closeAlert'],
+
   props: {
     alert: {
       show: Boolean,
@@ -26,6 +26,7 @@ export default {
 
 
   methods: {
+    //
     // countdown() {
     //   setTimeout(() => {
     //     this.closeTimer--;
@@ -34,14 +35,10 @@ export default {
     // },
 
     closeAlert() {
-      this.$emit('closeAlert', {
-        alertProps: {
-          show: false,
-          alertMessage: '',
-          isSuccess: null,
-        }})
-    }
+      this.$store.dispatch('closeAlert')
+      }
   },
+
 
 }
 </script>

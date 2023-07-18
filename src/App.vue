@@ -3,6 +3,7 @@
     <navigation-menu></navigation-menu>
     <router-view class="router"/>
     <contact-details></contact-details>
+    <alert-dialog  :alert="this.alert" @showAlert="this.showAlert"></alert-dialog>
 
   </div>
 
@@ -10,24 +11,50 @@
 <script>
 import NavigationMenu from "@/components/NavigationMenu.vue";
 import ContactDetails from "@/components/contactdetails/ContactsDetails.vue";
+import AlertDialog from "@/ui/AlertDialog.vue";
+
 
 export default {
-  components: {ContactDetails, NavigationMenu},
+  components: {AlertDialog, ContactDetails, NavigationMenu},
+  data() {
+    return {
+      alert: {
+        show: false,
+        alertMessage: '',
+        isSuccess: null,
+      },
+    }
+  },
   watch: {
     didAutoLogout(curValue, oldValue) {
       if (curValue && curValue !== oldValue) {
         this.$router.replace({name: 'home-view'});
       }
+    },
+    showAlert(curValue, oldValue) {
+      if (curValue !== oldValue) {
+        this.alert = this.$store.getters.getAlert
+      }
     }
+
   },
+
   computed: {
+    showAlert() {
+
+      return this.$store.getters.showAlert;
+    },
+
     didAutoLogout() {
       return this.$store.getters.didAutoLogout;
-    }
+    },
+
   },
   created() {
     this.$store.dispatch('autoLogin')
-  }
+
+  },
+
 
 
 }

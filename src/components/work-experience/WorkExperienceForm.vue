@@ -1,6 +1,6 @@
 <template>
 
-  <!--TODO Emit event on successful submit and display work experience component-->
+
   <!--TODO Make it pretty-->
   <div>
 
@@ -49,17 +49,15 @@
 
     </form>
   </div>
-  <alert-dialog :alert="this.alert" @close-alert="closeAlert"></alert-dialog>
+
 </template>
 
 <script>
 
 
-import AlertDialog from "@/ui/AlertDialog.vue";
-
 export default {
   name: "WorkExperienceForm",
-  components: {AlertDialog},
+
   emits: ['work-experience-submitted'],
   inject: ['editKey', 'edit'],
 
@@ -68,11 +66,7 @@ export default {
     return {
       key: this.editKey,
       isEdit: this.edit,
-      alert: {
-        show: false,
-        alertMessage: '',
-        isSuccess: null,
-      },
+
       isInvalid: {
         companyName: false,
         location: false,
@@ -112,18 +106,18 @@ export default {
           }
           // eslint-disable-next-line no-unused-vars
       ).then(response => {
-        this.alert.show = true;
-        this.alert.alertMessage = 'Work experience was edited successfully!'
-        this.alert.isSuccess = true;
-        this.autoClose();
+        this.$store.dispatch('setAlert', {
+          alertMessage: 'Work experience was edited successfully',
+          isSuccess: true,
+        });
 
 
+        // eslint-disable-next-line no-unused-vars
       }).catch(error => {
-        console.log(error)
-        this.alert.show = true;
-        this.alert.alertMessage = 'Editing work experience was unsuccessful. Try again.'
-        this.alert.isSuccess = false;
-        this.autoClose();
+        this.$store.dispatch('setAlert', {
+          alertMessage: 'Editing work experience failed. Try again.',
+          isSuccess: false,
+        });
       })
     },
 
@@ -141,28 +135,15 @@ export default {
               description: false,
             }));
           }).catch(error => {
-        this.alert.show = true;
-        this.alert.alertMessage = 'Pre-populating fields failed. Try again.'
-        this.alert.isSuccess = false;
-        this.autoClose();
+        this.$store.dispatch('setAlert', {
+          alertMessage: 'Pre-populating fields failed. Please try again.',
+          isSuccess: false,
+        });
 
         console.log(error)
       })
-    }
-    ,
-    autoClose() {
-      setTimeout(() => {
-        this.alert.show = false;
-        this.alert.alertMessage = '';
-        this.alert.isSuccess = null;
-      }, 5000)
     },
-    closeAlert(data) {
 
-      this.alert.show = data.alertProps.show;
-      this.alert.alertMessage = data.alertProps.alertMessage;
-      this.alert.isSuccess = data.alertProps.isSuccess;
-    },
     validateInput() {
       this.isInvalid.companyName = this.companyName === '';
       this.isInvalid.location = this.location === '';
@@ -214,18 +195,18 @@ export default {
 
         // eslint-disable-next-line no-unused-vars
       }).then(response => {
-        this.alert.show = true;
-        this.alert.alertMessage = 'Work experience was added successfully!'
-        this.alert.isSuccess = true;
-        this.autoClose();
+        this.$store.dispatch('setAlert', {
+          alertMessage: 'Work experience was added successfully!',
+          isSuccess: true,
+        });
 
 
+        // eslint-disable-next-line no-unused-vars
       }).catch(error => {
-        this.alert.show = true;
-        this.alert.alertMessage = 'Adding work experience was unsuccessful. Try again.'
-        this.alert.isSuccess = false;
-        this.autoClose();
-        console.log(error);
+        this.$store.dispatch('setAlert', {
+          alertMessage: 'Submitting work experience failed. Try again.',
+          isSuccess: false,
+        });
       })
     },
 

@@ -97,10 +97,17 @@ export default {
           // eslint-disable-next-line no-unused-vars
           .then(response => {
 
-
+            this.$store.dispatch('setAlert', {
+              alertMessage: 'Work experience deleted successfully.',
+              isSuccess: true,
+            });
             this.$emit('forceRerender')
           })
           .catch(error => {
+            this.$store.dispatch('setAlert', {
+              alertMessage: 'Deleting work experience failed.',
+              isSuccess: false,
+            });
 
             console.log(error)
           })
