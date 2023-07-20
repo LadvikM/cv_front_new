@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <navigation-menu></navigation-menu>
-    <router-view class="router"/>
+    <router-view class="router" :key="componentKey" @forceRerender="forceRerender"></router-view>
     <contact-details></contact-details>
     <alert-dialog  :alert="this.alert" @showAlert="this.showAlert"></alert-dialog>
 
@@ -18,6 +18,7 @@ export default {
   components: {AlertDialog, ContactDetails, NavigationMenu},
   data() {
     return {
+      componentKey: 0,
       alert: {
         show: false,
         alertMessage: '',
@@ -35,11 +36,13 @@ export default {
       if (curValue !== oldValue) {
         this.alert = this.$store.getters.getAlert
       }
-    }
+    },
+
 
   },
 
   computed: {
+
     showAlert() {
 
       return this.$store.getters.showAlert;
@@ -53,6 +56,11 @@ export default {
   created() {
     this.$store.dispatch('autoLogin')
 
+  },
+  methods: {
+    forceRerender() {
+      this.componentKey += 1;
+    }
   },
 
 
@@ -85,6 +93,7 @@ body {
 }
 
 .container {
+  font-family: 'Chakra Petch', sans-serif;
   display: grid;
   grid-template-columns: 20% 60% 20%; /*Column width*/
   /*grid-gap: 10px; !* Add some spacing between columns *!*/

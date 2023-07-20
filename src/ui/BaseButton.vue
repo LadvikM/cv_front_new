@@ -13,12 +13,15 @@ export default {
 <style scoped>
 button,
 a {
+
   text-decoration: none;
   padding: 0.75rem 1.5rem;
-  font: inherit;
-  background-color: #2b061e;
-  border: 1px solid #2b061e;
-  color: white;
+  font-family: 'Chakra Petch', sans-serif;
+  background-color: rgba(252, 159, 91, 0.85);
+  border: 1px solid rgba(252, 159, 91, 0.85);
+  color: black;
+  font-size: 1.1rem;
+
   cursor: pointer;
   border-radius: 30px;
   margin-right: 0.5rem;
@@ -29,27 +32,10 @@ a:hover,
 a:active,
 button:hover,
 button:active {
-  background-color: #270041;
-  border-color: #270041;
+  background-color: rgba(252, 159, 91, 1);
+  border-color: black;
 }
 
-.flat {
-  background-color: transparent;
-  color: #3a0061;
-  border: none;
-}
 
-.outline {
-  background-color: transparent;
-  border-color: #270041;
-  color: #270041;
-}
-
-.flat:hover,
-.flat:active,
-.outline:hover,
-.outline:active {
-  background-color: #edd2ff;
-}
 
 </style>

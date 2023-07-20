@@ -150,12 +150,11 @@ export default {
 
 
       this.positions.forEach((position, index) => {
-            this.isInvalid.positions[index].positionName = position.positionName === '';
-            this.isInvalid.positions[index].startDate = position.startDate === '';
-            this.isInvalid.positions[index].endDate = position.startDate > position.endDate && position.endDate !== '';
-            this.isInvalid.positions[index].description = position.description === '';
-          }
-      );
+        this.isInvalid.positions[index].positionName = position.positionName === '';
+        this.isInvalid.positions[index].startDate = position.startDate === '';
+        this.isInvalid.positions[index].endDate = position.startDate > position.endDate && position.endDate !== '';
+        this.isInvalid.positions[index].description = position.description === '';
+      });
       if (this.isInvalid.companyName ||
           this.isInvalid.location ||
           this.isInvalid.positions.some((position) => position.positionName) ||
@@ -178,7 +177,7 @@ export default {
 
     addAdditionalPosition: function () {
       this.isInvalid.positions.push({
-        positionName: false,
+        positionName: false, startDate: false, endDate: false, description: false
       })
       this.positions.push({
         positionName: '', startDate: '', endDate: '', description: ''

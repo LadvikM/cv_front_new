@@ -1,6 +1,6 @@
 <template>
 
-  <base-card>
+
     <div>
       <button class="beautiful-button" @click="toggleForm" v-if="isLoggedIn">Add Work Experience</button>
       <work-experience-form v-if="showForm" @workExperienceSubmitted="toggleForm"></work-experience-form>
@@ -10,18 +10,18 @@
 
 
     </div>
-  </base-card>
+
 </template>
 
 <script>
-import BaseCard from "@/ui/BaseCard.vue";
+
 import WorkExperienceForm from "@/components/work-experience/WorkExperienceForm.vue";
 import WorkExperience from "@/components/work-experience/WorkExperience.vue";
 import {computed} from "vue";
 
 export default {
   name: "WorkView",
-  components: {WorkExperience, WorkExperienceForm, BaseCard},
+  components: {WorkExperience, WorkExperienceForm},
   data() {
     return {
       showForm: false,
