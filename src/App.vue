@@ -60,7 +60,7 @@ export default {
 }
 </script>
 <style>
-
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
 #app {
 
   text-align: center;
@@ -82,11 +82,8 @@ body {
   overflow-y: scroll;
   width: 100%;
 
+}
 
-}
-.container navigation-menu {
-  background-color: #42b983;
-}
 .container {
   display: grid;
   grid-template-columns: 20% 60% 20%; /*Column width*/
@@ -94,7 +91,7 @@ body {
   justify-items: center;
   height: 100vmin;
 
-  background-color: black;
+  background-color: #2f4858;
 
 
 

@@ -5,7 +5,7 @@
 
 
   <h1>My work experience.</h1>
-  <h2 v-if="error">{{ this.error }}</h2>
+  <h2 v-if="error">{{error}}</h2>
   <base-spinner v-if="isLoading && !error"></base-spinner>
   <table v-else-if="!isLoading && !error" v-for="workExperience in workExperiences" :key="workExperience.id">
 
@@ -33,8 +33,8 @@
     </table>
 
     </tbody>
-    <button @click="deleteEntry(workExperience.id)" v-if="isLoggedIn">Delete Entry</button>
-    <button @click="editEntry(workExperience.id)" v-if="isLoggedIn">Edit Entry</button>
+    <base-button @click="deleteEntry(workExperience.id)" v-if="isLoggedIn">Delete Entry</base-button>
+    <base-button @click="editEntry(workExperience.id)" v-if="isLoggedIn">Edit Entry</base-button>
   </table>
 
 
@@ -44,11 +44,12 @@
 
 import moment from 'moment'
 import BaseSpinner from "@/ui/BaseSpinner.vue";
+import BaseButton from "@/ui/BaseButton.vue";
 
 
 export default {
   name: "WorkExperience",
-  components: {BaseSpinner},
+  components: {BaseButton, BaseSpinner},
   emits: ['forceRerender', 'editEntry'],
 
   data() {

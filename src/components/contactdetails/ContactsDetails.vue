@@ -24,13 +24,14 @@
 
       <li class="contact-item">
         <transition name="phone-email">
-          <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
+          <p v-if="showPhone">{{this.contactDetails.phone }}</p>
         </transition>
+
         <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
       </li>
       <li class="contact-item">
         <transition name="phone-email">
-          <p v-if="showEmail">{{ this.contactDetails.email }}</p>
+          <p v-if="showEmail">{{this.contactDetails.email }}</p>
         </transition>
         <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
       </li>
@@ -104,8 +105,7 @@ export default {
 <style scoped>
 
 .container {
-  width: 100%;
-  background-color: coral;
+  width: 100%; /* Width 100% of parent element*/
   display: flex;
   justify-content: center; /*aligns content horizontally center*/
   align-items: center; /*aligns content vertically center*/
@@ -115,18 +115,10 @@ export default {
 
 ul {
   font-size: 2rem;
-  border: aqua solid 1px;
-
 }
-
-ul p {
-  font-size: 1.5rem;
-}
-
 .phone-email-enter-from,
 .phone-email-leave-to {
   opacity: 0;
-
 }
 
 .phone-email-enter-to,
@@ -138,18 +130,28 @@ ul p {
 .phone-email-leave-active {
   transition: all 1s ease;
 }
-
+a:visited {
+  color: white;
+}
+a:hover {
+  color: #b8c480;
+}
+.contact-item:hover {
+  color: #b8c480;
+}
 .contact-item p {
   display: inline-block;
   margin: 0;
 }
 .contact-item {
-
+  cursor: pointer;
+  padding: 5px;
 }
+
 .contact-items {
   width: 100%;
   margin: 0;
-  padding: 0;
+
   list-style: none;
 }
 

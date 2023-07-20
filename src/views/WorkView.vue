@@ -2,7 +2,7 @@
 
   <base-card>
     <div>
-      <button @click="toggleForm" v-if="isLoggedIn">Add Work Experience</button>
+      <button class="beautiful-button" @click="toggleForm" v-if="isLoggedIn">Add Work Experience</button>
       <work-experience-form v-if="showForm" @workExperienceSubmitted="toggleForm"></work-experience-form>
 
 
@@ -64,5 +64,28 @@ export default {
 </script>
 
 <style scoped>
+/* Button Styles */
+.beautiful-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  color: black;
+  background-color: yellow;
+  border: none;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  cursor: pointer;
+}
 
+.beautiful-button:hover {
+  background-color: #42b983;
+  color: white;
+}
+
+.beautiful-button:active {
+  background-color: #d62849;
+}
 </style>

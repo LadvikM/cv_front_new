@@ -14,7 +14,7 @@ export default {
 .card {
   border-radius: 12px;
 
-  box-shadow: 0 2px 8px rgb(38, 136, 28);
+  box-shadow: rgba(184, 196, 128, 0.75);
   padding: 1rem;
   margin: 2rem auto;
   max-width: 40rem;

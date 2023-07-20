@@ -14,7 +14,7 @@
       <router-link to="/projects">Projects</router-link>
       <router-link to="/contact">Contact</router-link>
       <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
-      <button v-if="isLoggedIn" @click='logout'>Logout</button>
+      <a v-if="isLoggedIn" @click='logout'>Logout</a>
     </nav>
   </div>
 </template>
@@ -34,21 +34,12 @@ export default {
 }
 </script>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
 html {
 
 }
-button {
-  color: white;
-  font-size: x-large;
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  /*optional*/
 
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 
 
@@ -58,15 +49,17 @@ nav a {
   font-size: x-large;
   text-decoration: none;
   display: block;
+  cursor: pointer;
+  padding: 5px;
 
 
 }
 nav a:hover {
-  color: aquamarine;
+  color: #b8c480;
 }
 
 nav a.router-link-exact-active {
-  color: #26ff0c; /*  Active link color*/
+  color: #fc9f5b; /*  Active link color*/
 
 }
 
@@ -76,7 +69,7 @@ nav a.router-link-exact-active {
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #42b983;
+  font-family: 'Lato', sans-serif;
 
 
 }

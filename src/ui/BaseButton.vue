@@ -16,8 +16,8 @@ a {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
   font: inherit;
-  background-color: #3a0061;
-  border: 1px solid #3a0061;
+  background-color: #2b061e;
+  border: 1px solid #2b061e;
   color: white;
   cursor: pointer;
   border-radius: 30px;
