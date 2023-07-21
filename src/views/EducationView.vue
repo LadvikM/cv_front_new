@@ -7,8 +7,10 @@
       <base-spinner v-if="!errorMessage && isLoading"></base-spinner>
     </div>
     <div v-if="!errorMessage && !isLoading">
+      <div v-if="isLoggedIn">
       <base-button v-if="!isFormView" @click="toggleForm">Add Education</base-button>
       <base-button v-if="isFormView" @click="toggleForm">Cancel</base-button>
+      </div>
       <education-form v-if="isFormView"></education-form>
       <div v-if="!isFormView">
         <div class="educations-element" v-for="education in educations" :key="education.key">
@@ -20,8 +22,10 @@
             <p>{{ formatStartDate(subject.startDate) }} - {{ formatEndDate(subject.endDate) }}</p>
             <p>{{ subject.description }}</p>
           </div>
+          <div v-if="isLoggedIn">
           <BaseButton @click="editEducation(education.id)">Edit</BaseButton>
           <BaseButton @click="deleteEducation(education.id)">Delete</BaseButton>
+          </div>
         </div>
       </div>
     </div>
@@ -67,6 +71,11 @@ export default {
   provide() {
     return {
       educationKey: computed(() => this.educationKey)
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {

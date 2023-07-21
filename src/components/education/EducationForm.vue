@@ -31,9 +31,11 @@
         <textarea id="description" rows="5" v-model.trim="this.educations.subjects[index].description"></textarea>
       </div>
     </div>
+
     <base-button type="button" @click="addAdditionalSubject">Add additional subject</base-button>
     <base-button v-if="!isEdit" type="submit">Submit</base-button>
     <base-button v-if="isEdit" type="button" @click="validateInput">Submit Edit</base-button>
+
   </form>
 </template>
 <script>

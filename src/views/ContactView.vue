@@ -1,6 +1,6 @@
 <template>
 <div>
-  Saada mulle kiri!
+  Work in progress. Send me an email instead. Click on @ sign on the right to get my email address.
 </div>
 </template>
 

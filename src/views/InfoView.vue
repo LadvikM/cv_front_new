@@ -1,6 +1,6 @@
 <template>
 <div>
-  Hobid & Shit
+  What to write here?
 </div>
 </template>
 
