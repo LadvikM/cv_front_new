@@ -1,5 +1,7 @@
 <template>
   <div class="education">
+
+    <h1 class="page-header">"Learning never exhausts the mind." - Leonardo da Vinci</h1>
     <div v-if="errorMessage">
       <h1>{{ errorMessage }}</h1>
     </div>
@@ -8,23 +10,26 @@
     </div>
     <div v-if="!errorMessage && !isLoading">
       <div v-if="isLoggedIn">
-      <base-button v-if="!isFormView" @click="toggleForm">Add Education</base-button>
-      <base-button v-if="isFormView" @click="toggleForm">Cancel</base-button>
+        <base-button v-if="!isFormView" @click="toggleForm">Add Education</base-button>
+        <base-button v-if="isFormView" @click="toggleForm">Cancel</base-button>
       </div>
       <education-form v-if="isFormView"></education-form>
       <div v-if="!isFormView">
         <div class="educations-element" v-for="education in educations" :key="education.key">
-          <p>{{ education.institution }}</p>
-          <p>{{ education.location }}</p>
+          <h1 class="institution">{{ education.institution }}</h1>
+          <p class="location">Location: {{ education.location }}</p>
           <div v-for="subject in education.subjects" :key="subject.key">
-            <p>{{ subject.subject }}</p>
-            <p>{{ subject.degree }}</p>
-            <p>{{ formatStartDate(subject.startDate) }} - {{ formatEndDate(subject.endDate) }}</p>
-            <p>{{ subject.description }}</p>
+            <div class="subject-degree">
+              <h2 class="subject">{{ subject.subject }}</h2>
+              <p>{{ subject.degree }}</p>
+            </div>
+
+            <p class="from-to">{{ formatStartDate(subject.startDate) }} - {{ formatEndDate(subject.endDate) }}</p>
+            <p class="description">Description: {{ subject.description }}</p>
           </div>
-          <div v-if="isLoggedIn">
-          <BaseButton @click="editEducation(education.id)">Edit</BaseButton>
-          <BaseButton @click="deleteEducation(education.id)">Delete</BaseButton>
+          <div class="button" v-if="isLoggedIn">
+            <BaseButton @click="editEducation(education.id)">Edit</BaseButton>
+            <BaseButton @click="deleteEducation(education.id)">Delete</BaseButton>
           </div>
         </div>
       </div>
@@ -38,6 +43,7 @@ import BaseButton from "@/ui/BaseButton.vue";
 import moment from "moment/moment";
 import {computed} from "vue";
 import BaseSpinner from "@/ui/BaseSpinner.vue";
+
 
 export default {
   name: "EducationView",
@@ -144,13 +150,57 @@ export default {
 }
 </script>
 <style scoped>
+.page-header {
+  padding: 2rem
+}
+
 .education {
   display: flex;
   flex-direction: column;
 }
+
 .educations-element {
   border-bottom: #909cc2 2px solid;
   background: rgba(255, 255, 255, 0.05);
+}
+
+.institution {
+  padding-top: 1rem;
+  margin: 1rem;
+  font-size: 2rem;
+  text-align: start;
+}
+
+.from-to,
+.location {
+  display: flex;
+  align-items: start;
+  margin: 1rem;
+}
+
+.subject-degree {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.subject {
+  padding-right: 1rem;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.description {
+  width: 75%;
+  display: flex;
+  align-items: start;
+  margin: 1rem;
+  text-align: start;
+}
+
+.button {
+  margin-bottom: 0.5rem;
 }
 </style>
 

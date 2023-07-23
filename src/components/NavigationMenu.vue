@@ -107,7 +107,6 @@ export default {
       })
 
 
-
     },
     resetEducation: function () {
 
@@ -137,7 +136,7 @@ export default {
           location: 'Tallinn, Estonia',
           subjects: [{
             subject: 'ChooseIT!',
-            degree: 'IT training',
+            degree: 'Retraining',
             startDate: '2023-06-27',
             endDate: '2023-07-17',
             description: '240 hour bootcamp, where I got basic web development knowledge. During training Java, PostgreSQL, RESTful API, Spring Boot, HTML5, CSS, CSS Bootsrap, JavaScript, Vue.js. technologies were used.',
@@ -150,105 +149,82 @@ export default {
             subjects: [{
               subject: 'Aircraft Maintenance Technician',
               degree: 'Vocational Education',
-              startDate: '2020-03-13',
+              startDate: '2020-04-13',
               endDate: '2022-01-17',
               description: 'Learning how to fix planes. Theoretical training in classroom and practical training was work at Magnetic MRO.',
 
             }]
           }).then(() => {
             this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/education.json", {
-              institution: 'Estonian Aviation Academy',
+              institution: 'Estonian Maritime Academy',
               location: 'Tallinn, Estonia',
               subjects: [{
-                subject: 'Aircraft Maintenance Technician',
-                degree: 'Vocational Education',
-                startDate: '2020-03-13',
-                endDate: '2022-01-17',
-                description: 'Learning how to fix planes. Theoretical training in classroom and practical training was work at Magnetic MRO.',
+                subject: 'Navigation',
+                degree: 'Higher Vocational Education',
+                startDate: '2010-09-01',
+                endDate: '2017-06-17',
+                description: 'Navigation, Ship Manoeuvring and Handling, Training on Simulator, English, Safety of Navigation, Ship Design and Stability ',
 
               }]
             }).then(() => {
               this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/education.json", {
-                institution: 'Estonian Aviation Academy',
-                location: 'Tallinn, Estonia',
+                institution: 'Tallinn Technical High School',
+                location: 'Tallinn Estonia',
                 subjects: [{
-                  subject: 'Aircraft Maintenance Technician',
-                  degree: 'Vocational Education',
-                  startDate: '2020-03-13',
-                  endDate: '2022-01-17',
-                  description: 'Learning how to fix planes. Theoretical training in classroom and practical training was work at Magnetic MRO.',
+                  subject: 'Grades 10 to 12',
+                  degree: 'Secondary Education',
+                  startDate: '2007-09-01',
+                  endDate: '2010-06-18',
+                  description: 'Secondary education. ',
 
                 }]
               }).then(() => {
-                this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/education.json", {
-                  institution: 'Estonian Maritime Academy',
-                  location: 'Tallinn, Estonia',
-                  subjects: [{
-                    subject: 'Navigation',
-                    degree: 'Higher Vocational Education',
-                    startDate: '2010-09-01',
-                    endDate: '2017-06-17',
-                    description: 'Navigation, Ship Manoeuvring and Handling, Training on Simulator, English, Safety of Navigation, Ship Design and Stability ',
-
-                  }]
-                }).then(()=> {
-                  this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/education.json", {
-                    institution: 'Tallinn Technical High School',
-                    location: 'Tallinn Estonia',
-                    subjects: [{
-                      subject: 'Grades 10 to 12',
-                      degree: 'Secondary Education',
-                      startDate: '2007-09-01',
-                      endDate: '2010-06-18',
-                      description: 'Secondary education. ',
-
-                    }]
-                  }).then(() => {
-                    this.resetProjects()
-                  })
-                })
+                this.resetProjects()
               })
             })
           })
         })
       })
     },
-    resetProjects: function () {
 
+
+resetProjects: function () {
+
+  this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
+    projectName: 'CV Front - New',
+    projectLink: 'https://github.com/LadvikM/cv_front_new',
+    projectDescription: 'It is this website you are on right now. This project I made to introduce myself for potential employers and show what I can do using Vue.js. Still in progress.',
+  }).then(() => {
+    this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
+      projectName: 'Escape From the Woods',
+      projectLink: 'https://github.com/LadvikM/EscapeFromTheWoods',
+      projectDescription: 'Task was to read the map from a file and find shortest way out of "forest" by using Java. Test assignment, was completed successfully.',
+    }).then(() => {
       this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-        projectName: 'CV Front - New',
-        projectLink: 'https://github.com/LadvikM/cv_front_new',
-        projectDescription: 'It is this website you are on right now. This project I made to introduce myself for potential employers and show what I can do using Vue.js. Still in progress.',
+        projectName: 'Payday',
+        projectLink: 'https://github.com/LadvikM/Payday',
+        projectDescription: 'Task was to input a year and then for every month to calculate payday(10th) and date when to send memo for accountant(3days before payday). Taking into consideration that these days can not be on weekend or on holidays. Test assignment, was completed successfully.',
       }).then(() => {
         this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-          projectName: 'Escape From the Woods',
-          projectLink: 'https://github.com/LadvikM/EscapeFromTheWoods',
-          projectDescription: 'Task was to read the map from a file and find shortest way out of "forest" by using Java. Test assignment, was completed successfully.',
+          projectName: 'Random Emoji',
+          projectLink: 'https://github.com/LadvikM/RandomEmoji',
+          projectDescription: 'Project for a friend to show my skills. His reaction: "Not bad." The task was to fetch three random emojis from API and print them out in console and test the code.'
         }).then(() => {
-          this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-            projectName: 'Payday',
-            projectLink: 'https://github.com/LadvikM/Payday',
-            projectDescription: 'Task was to input a year and then for every month to calculate payday(10th) and date when to send memo for accountant(3days before payday). Taking into consideration that these days can not be on weekend or on holidays. Test assignment, was completed successfully.',
-          }).then( () => {
-            this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-              projectName: 'Random Emoji',
-              projectLink: 'https://github.com/LadvikM/RandomEmoji',
-              projectDescription: 'Project for a friend to show my skills. His reaction: "Not bad." The task was to fetch three random emojis from API and print them out in console and test the code.'
-            }).then(() => {
-              this.$store.dispatch('setAlert', {
-                alertMessage: 'Database reset completed',
-                isSuccess: true,
-              })
-            })
+          this.$store.dispatch('setAlert', {
+            alertMessage: 'Database reset completed',
+            isSuccess: true,
           })
         })
       })
-    },
-    
-    logout() {
-      this.$store.dispatch('logout');
-    }
-  },
+    })
+  })
+},
+
+logout()
+{
+  this.$store.dispatch('logout');
+}
+},
 }
 </script>
 <style scoped>

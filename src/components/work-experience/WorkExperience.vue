@@ -1,5 +1,5 @@
 <template>
-  <h1 class="page-heading">My work experience.</h1>
+  <h1 class="page-header">My work experience.</h1>
   <h2 class="error" v-if="error">{{ error }}</h2>
   <base-spinner v-if="isLoading && !error"></base-spinner>
   <div class="work-experience" v-else-if="!isLoading && !error" v-for="workExperience in workExperiences"
@@ -179,7 +179,7 @@ export default {
   text-align: start;
 }
 
-.page-heading {
+.page-header {
   padding: 2rem
 }
 .button {

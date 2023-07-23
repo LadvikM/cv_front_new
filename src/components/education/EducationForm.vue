@@ -33,8 +33,8 @@
     </div>
 
     <base-button type="button" @click="addAdditionalSubject">Add additional subject</base-button>
-    <base-button v-if="!isEdit" type="submit">Submit</base-button>
-    <base-button v-if="isEdit" type="button" @click="validateInput">Submit Edit</base-button>
+    <base-button type="submit">Submit</base-button>
+
 
   </form>
 </template>
@@ -89,15 +89,15 @@ export default {
       this.isInvalid.location = this.educations.location === '';
       this.educations.subjects.forEach((subject, index) => {
         this.isInvalid.subjects[index].subject = subject.subject === '';
-        this.isInvalid.subjects[index].degree = subject.degree === '';
+
         this.isInvalid.subjects[index].startDate = subject.startDate === '';
-        this.isInvalid.subjects[index].endDate = subject.startDate > subject.endDate;
+        this.isInvalid.subjects[index].endDate = subject.startDate > subject.endDate && subject.endDate !== '';
         this.isInvalid.subjects[index].description = subject.description === '';
       });
       // Check if any field is invalid
       if (this.isInvalid.institution || this.isInvalid.location ||
           this.isInvalid.subjects.some((subject) => subject.positionName) ||
-          this.isInvalid.subjects.some((subject) => subject.degree) ||
+
           this.isInvalid.subjects.some((subject) => subject.startDate) ||
           this.isInvalid.subjects.some((subject) => subject.endDate) ||
           this.isInvalid.subjects.some((subject) => subject.description)
@@ -113,7 +113,6 @@ export default {
     },
     editEducation: function () {
       this.$http.put(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/education/${this.educationKey}.json`, this.educations
-
       ).then(() => {
         this.$store.dispatch('setAlert', {
           alertMessage: 'Editing was successful!',
