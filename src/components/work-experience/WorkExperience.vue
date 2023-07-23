@@ -73,8 +73,8 @@ export default {
 
     deleteEntry: function (key) {
       this.$http.delete(`https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience/${key}.json`)
-          // eslint-disable-next-line no-unused-vars
-          .then(response => {
+
+          .then(() => {
 
             this.$store.dispatch('setAlert', {
               alertMessage: 'Work experience deleted successfully.',
@@ -119,8 +119,8 @@ export default {
             }
 
             this.isLoading = false;
-            // eslint-disable-next-line no-unused-vars
-          }).catch(error => {
+
+          }).catch(() => {
         this.error = 'Something went wrong. I have definitely worked before!'
       })
     },
