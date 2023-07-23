@@ -14,10 +14,13 @@ import ContactDetails from "@/components/contactdetails/ContactsDetails.vue";
 import AlertDialog from "@/ui/AlertDialog.vue";
 
 
+
+
 export default {
   components: {AlertDialog, ContactDetails, NavigationMenu},
   data() {
     return {
+      showModal: false,
       componentKey: 0,
       alert: {
         show: false,
@@ -26,6 +29,7 @@ export default {
       },
     }
   },
+
   watch: {
     didAutoLogout(curValue, oldValue) {
       if (curValue && curValue !== oldValue) {
@@ -58,6 +62,7 @@ export default {
 
   },
   methods: {
+
     forceRerender() {
       this.componentKey += 1;
     }

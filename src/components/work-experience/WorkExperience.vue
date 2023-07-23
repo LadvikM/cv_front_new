@@ -1,43 +1,21 @@
 <template>
-  <!--  TODO Arrange entries by date.-->
-
-  <!--  TODO Make it pretty-->
-
-
-  <h1>My work experience.</h1>
-  <h2 v-if="error">{{error}}</h2>
+  <h1 class="page-heading">My work experience.</h1>
+  <h2 class="error" v-if="error">{{ error }}</h2>
   <base-spinner v-if="isLoading && !error"></base-spinner>
-  <table v-else-if="!isLoading && !error" v-for="workExperience in workExperiences" :key="workExperience.id">
-
-    <thead class="table-header">
-    <tr>
-      <td class="company-name">
-        <h2>{{ workExperience.companyName }} </h2>
-      </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td class="location">{{ workExperience.location }}</td>
-    </tr>
-
-    <table v-for="position in workExperience.positions" :key="position.id">
-      <tr>
-        <td class="position">{{ position.positionName }}</td>
-        <td class="to-from">{{ formatStartDate(position.startDate) }} - {{ formatEndDate(position.endDate) }}</td>
-      </tr>
-      <tr>
-        <td class="description" colspan="2">{{ position.description }}</td>
-      </tr>
-
-    </table>
-
-    </tbody>
-    <base-button @click="deleteEntry(workExperience.id)" v-if="isLoggedIn">Delete Entry</base-button>
-    <base-button @click="editEntry(workExperience.id)" v-if="isLoggedIn">Edit Entry</base-button>
-  </table>
-
-
+  <div class="work-experience" v-else-if="!isLoading && !error" v-for="workExperience in workExperiences"
+       :key="workExperience.id">
+    <h1 class="company-name">{{ workExperience.companyName }}</h1>
+    <p class="location">Location: {{ workExperience.location }}</p>
+    <div v-for="position in workExperience.positions" :key="position.id">
+      <div class="position-date">
+        <h2 class="position">{{ position.positionName }}</h2>
+        <p class="from-to">{{ formatStartDate(position.startDate) }} - {{ formatEndDate(position.endDate) }}</p>
+      </div>
+      <p class="description"> Work Description: {{ position.description }}</p>
+    </div>
+    <base-button class="button" @click="editEntry(workExperience.id)" v-if="isLoggedIn">Edit</base-button>
+    <base-button class="button" @click="deleteEntry(workExperience.id)" v-if="isLoggedIn">Delete</base-button>
+  </div>
 </template>
 
 <script>
@@ -153,33 +131,59 @@ export default {
 </script>
 
 <style scoped>
-.company-name {
-  padding: 1rem;
-  border: white 1px solid;
-  font-size: 1.5rem;
+.work-experience {
+  align-content: start;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: #909cc2 2px solid;
 
 }
 
 .location {
-  border: yellow 1px solid;
+  display: flex;
+  align-items: start;
+  margin: 1rem;
 }
 
-.table-header {
-  column-span: 2;
+.company-name {
+  padding-top: 1rem;
+  margin: 1rem;
+  font-size: 2rem;
+  text-align: start;
 }
+
+.position-date {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
 
 .position {
-  border: red 1px solid;
-  font-size: 1.3rem;
+  padding-right: 1rem;
+  font-size: 1.5rem;
+  margin: 0;
 }
 
-.to-from {
-  border: aqua 1px solid;
+.error {
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .description {
+  width: 75%;
+  display: flex;
+  align-items: start;
+  margin: 1rem;
+  text-align: start;
+}
 
-  border: coral 1px solid;
+.page-heading {
+  padding: 2rem
+}
+.button {
+  margin-bottom: 0.5rem;
 }
 
 </style>

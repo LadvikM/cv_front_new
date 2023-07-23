@@ -150,6 +150,7 @@ export default {
 }
 .educations-element {
   border-bottom: #909cc2 2px solid;
+  background: rgba(255, 255, 255, 0.05);
 }
 </style>
 
