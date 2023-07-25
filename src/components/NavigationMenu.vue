@@ -137,9 +137,9 @@ export default {
           subjects: [{
             subject: 'ChooseIT!',
             degree: 'Retraining',
-            startDate: '2023-06-27',
-            endDate: '2023-07-17',
-            description: '240 hour bootcamp, where I got basic web development knowledge. During training Java, PostgreSQL, RESTful API, Spring Boot, HTML5, CSS, CSS Bootsrap, JavaScript, Vue.js. technologies were used.',
+            startDate: '2023-01-16',
+            endDate: '2023-02-27',
+            description: '240 hour bootcamp, where I got basic web development knowledge. During training I used Java, PostgreSQL, RESTful API, Spring Boot, HTML5, CSS, CSS Bootsrap, JavaScript, Vue.js. technologies were used.',
 
           }]
         }).then(() => {

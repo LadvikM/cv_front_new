@@ -3,9 +3,10 @@ import axios from "axios";
 
 export default {
     auth(context, payload) {
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAdSX4WKcnk8B8yOThVu14tOkmmHLdGZk8'
+        const key = ""
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + key
         if (payload.mode === 'login') {
-            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdSX4WKcnk8B8yOThVu14tOkmmHLdGZk8'
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + key
         }
         axios.post(url, {
             email: payload.email,

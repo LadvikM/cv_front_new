@@ -11,9 +11,12 @@
       <div v-if="isFormView">
         <projects-form></projects-form>
       </div>
-      <div v-for="project in projects" :key="project.key">
+      <div class="page-header">
+        <h1>Overview of my projects</h1>
+      </div>
+      <div class="project" v-for="project in projects" :key="project.key">
         <div v-if="!isFormView">
-          <h1>{{ project.projectName }}</h1>
+          <h1 class="project-name">{{ project.projectName }}</h1>
           <a :href="project.projectLink"><base-button>See project</base-button></a>
           <p>{{ project.projectDescription }}</p>
           <base-button v-if="isLoggedIn" @click="deleteProject(project.id)">Delete</base-button>
@@ -109,4 +112,11 @@ export default {
   }
 }
 </script>
-
+<style scoped>
+.page-header {
+  padding: 2rem
+}
+.project {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+</style>
