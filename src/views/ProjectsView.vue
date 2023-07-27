@@ -17,7 +17,7 @@
       <div class="project" v-for="project in projects" :key="project.key">
         <div v-if="!isFormView">
           <h1 class="project-name">{{ project.projectName }}</h1>
-          <a :href="project.projectLink"><base-button>See project</base-button></a>
+          <a :href="project.projectLink"><base-button>See code</base-button></a>
           <p>{{ project.projectDescription }}</p>
           <base-button v-if="isLoggedIn" @click="deleteProject(project.id)">Delete</base-button>
           <base-button v-if="isLoggedIn" @click="editProject(project.id)">Edit</base-button>

@@ -12,11 +12,32 @@
       <a @click='resetDatabase'>Reset Database</a>
     </nav>
   </div>
+  <base-modal :show-modal="showModal">
+    <template v-slot:header>
+      <h2>Database reset in progress...</h2>
+    </template>
+    <template v-slot:body>
+      <base-spinner></base-spinner>
+    </template>
+    <template v-slot:footer>
+    Please wait.
+    </template>
+  </base-modal>
+
 </template>
 <script>
+import BaseModal from "@/ui/BaseModal.vue";
+import BaseSpinner from "@/ui/BaseSpinner.vue";
+
 export default {
   name: 'NavigationMenu',
-  emits: ['resetStarted', 'resetCompleted'],
+  components: {BaseSpinner, BaseModal},
+  emits: ['resetCompleted'],
+  data() {
+    return {
+      showModal: false
+    }
+  },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
@@ -24,7 +45,7 @@ export default {
   },
   methods: {
     resetDatabase() {
-      this.$emit('resetStarted')
+      this.showModal = true
       this.$http.delete("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/home-page.json").then(() => {
         this.$http.delete("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/about-page.json").then(() => {
           this.$http.delete("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/work-experience.json").then(() => {
@@ -58,7 +79,7 @@ export default {
 
       this.$http.put("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/about-view.json", {
         header: 'Pleased to meet you',
-        longDescription: 'I am an aspiring developer with prior experience in maritime industry as a Navigation Officer and in aviation industry as an Aircraft Mechanic. <br> I have recently decided to make another 180° turn and become a developer. I have passed a VALI-IT/CHOOSE-IT bootcamp where in 6 weeks I got basic programming knowledge. <br>I am now in search of a Internship or a Junior Developer position where I can put my skills into practice and continue developing myself and become a valuable member of the team.<br>Meanwhile I am trying to keep learning by myself, not to forget what I learned and to improve myself. The website, you are on right now, is a fruit of my work. The site is still in developement. Functionality is there, but looks needs improvement. I\'m now in progress of passing CSS online course and I will try to update this site daily. To see the latest code, check out Github on the right or Projects on the left. <br>At the moment this site is running on Google Firebase back-end, but as soon as I am finished I will start building backend for it myself.',
+        longDescription: 'I am an aspiring developer with prior experience in maritime industry as a Navigation Officer and in aviation industry as an Aircraft Mechanic. <br> I have recently decided to make another 180° turn and become a developer. I have passed a VALI-IT/CHOOSE-IT bootcamp where in 6 weeks I got basic programming knowledge. <br>I am now in search of a Internship or a Junior Developer position where I can put my skills into practice and continue developing myself and become a valuable member of the team.<br>Meanwhile I am trying to keep learning by myself, not to forget what I learned and to improve myself. The website, you are on right now, is a fruit of my work. The site is still in development. Functionality is there, but looks needs improvement. Feel free to create an account to see additional features. (Real email in not required)  I\'m now in progress of passing CSS online course and I will try to update this site daily. To see the latest code, check out Github on the right or Projects on the left. <br>At the moment this site is running on Google Firebase back-end, but as soon as I am finished I will start building backend for it myself.',
       }).then(() => {
         this.resetWorkExperience()
       })
@@ -136,10 +157,10 @@ export default {
           location: 'Tallinn, Estonia',
           subjects: [{
             subject: 'ChooseIT!',
-            degree: 'Retraining',
+            degree: 'Developer bootcamp',
             startDate: '2023-01-16',
             endDate: '2023-02-27',
-            description: '240 hour bootcamp, where I got basic web development knowledge. During training I used Java, PostgreSQL, RESTful API, Spring Boot, HTML5, CSS, CSS Bootsrap, JavaScript, Vue.js. technologies were used.',
+            description: '240 hour bootcamp, where I got basic web development knowledge. During training I used Java, PostgreSQL, RESTful API, Spring Boot, HTML5, CSS, CSS Bootsrap, JavaScript, Vue.js. technologies.',
 
           }]
         }).then(() => {
@@ -210,6 +231,7 @@ resetProjects: function () {
           projectLink: 'https://github.com/LadvikM/RandomEmoji',
           projectDescription: 'Project for a friend to show my skills. His reaction: "Not bad." The task was to fetch three random emojis from API and print them out in console and test the code.'
         }).then(() => {
+          this.showModal = false;
           this.$store.dispatch('setAlert', {
             alertMessage: 'Database reset completed',
             isSuccess: true,
@@ -229,10 +251,6 @@ logout()
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
-
-html {
-
-}
 
 
 nav a {

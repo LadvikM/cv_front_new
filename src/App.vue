@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="app">
     <navigation-menu></navigation-menu>
     <router-view class="router" :key="componentKey" @forceRerender="forceRerender"></router-view>
     <contact-details></contact-details>
@@ -97,13 +97,12 @@ body {
 
 }
 
-.container {
+.app {
   font-family: 'Chakra Petch', sans-serif;
   display: grid;
   grid-template-columns: 20% 60% 20%; /*Column width*/
-  /*grid-gap: 10px; !* Add some spacing between columns *!*/
   justify-items: center;
-  height: 100vmin;
+  height: 100vh;
 
   background-color: #2f4858;
 

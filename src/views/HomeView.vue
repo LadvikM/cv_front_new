@@ -134,13 +134,14 @@ export default {
 </script>
 <style scoped>
 
+
 h1 {
-  font-size: 4rem;
-  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.5rem;
+
 }
 p {
-  font-family: 'Chakra Petch', sans-serif;
-  font-size: 2rem;
+
+  font-size: 1rem;
 }
 
 .home {
@@ -149,6 +150,14 @@ p {
   width: 100%;
   align-items: center;
   justify-content: center;
+}
+@media(min-width: 40rem) {
+  h1 {
+    font-size: 4rem;
+  }
+  p {
+    font-size: 2rem;
+  }
 }
 
 </style>
