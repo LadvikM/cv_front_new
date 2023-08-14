@@ -9,7 +9,11 @@
       <router-link to="/contact">Contact</router-link>
       <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
       <a v-if="isLoggedIn" @click='logout'>Logout</a>
-      <a @click='resetDatabase'>Reset Database</a>
+      <div class="reset-button">
+        <a @click='resetDatabase'>Reset Database</a>
+        <font-awesome-icon icon="fa-solid fa-arrow-up"/>
+        <p>Reset database first to make sure that entered info is correct!</p>
+      </div>
     </nav>
   </div>
   <base-modal :show-modal="showModal">
@@ -20,14 +24,18 @@
       <base-spinner></base-spinner>
     </template>
     <template v-slot:footer>
-    Please wait.
+      Please wait.
     </template>
   </base-modal>
+
+
 
 </template>
 <script>
 import BaseModal from "@/ui/BaseModal.vue";
 import BaseSpinner from "@/ui/BaseSpinner.vue";
+
+
 
 export default {
   name: 'NavigationMenu',
@@ -35,7 +43,7 @@ export default {
   emits: ['resetCompleted'],
   data() {
     return {
-      showModal: false
+      showModal: false,
     }
   },
   computed: {
@@ -209,80 +217,90 @@ export default {
     },
 
 
-resetProjects: function () {
+    resetProjects: function () {
 
-  this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-    projectName: 'CV Front - New',
-    projectLink: 'https://github.com/LadvikM/cv_front_new',
-    projectDescription: 'It is this website you are on right now. This project I made to introduce myself for potential employers and show what I can do using Vue.js. Still in progress.',
-  }).then(() => {
-    this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-      projectName: 'Escape From the Woods',
-      projectLink: 'https://github.com/LadvikM/EscapeFromTheWoods',
-      projectDescription: 'Task was to read the map from a file and find shortest way out of "forest" by using Java. Test assignment, was completed successfully.',
-    }).then(() => {
       this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-        projectName: 'Payday',
-        projectLink: 'https://github.com/LadvikM/Payday',
-        projectDescription: 'Task was to input a year and then for every month to calculate payday(10th) and date when to send memo for accountant(3days before payday). Taking into consideration that these days can not be on weekend or on holidays. Test assignment, was completed successfully.',
+        projectName: 'CV Front - New',
+        projectLink: 'https://github.com/LadvikM/cv_front_new',
+        projectDescription: 'It is this website you are on right now. This project I made to introduce myself for potential employers and show what I can do using Vue.js. Still in progress.',
       }).then(() => {
         this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
-          projectName: 'Random Emoji',
-          projectLink: 'https://github.com/LadvikM/RandomEmoji',
-          projectDescription: 'Project for a friend to show my skills. His reaction: "Not bad." The task was to fetch three random emojis from API and print them out in console and test the code.'
+          projectName: 'Escape From the Woods',
+          projectLink: 'https://github.com/LadvikM/EscapeFromTheWoods',
+          projectDescription: 'Task was to read the map from a file and find shortest way out of "forest" by using Java. Test assignment, was completed successfully.',
         }).then(() => {
-          this.showModal = false;
-          this.$store.dispatch('setAlert', {
-            alertMessage: 'Database reset completed',
-            isSuccess: true,
+          this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
+            projectName: 'Payday',
+            projectLink: 'https://github.com/LadvikM/Payday',
+            projectDescription: 'Task was to input a year and then for every month to calculate payday(10th) and date when to send memo for accountant(3days before payday). Taking into consideration that these days can not be on weekend or on holidays. Test assignment, was completed successfully.',
+          }).then(() => {
+            this.$http.post("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/projects.json", {
+              projectName: 'Random Emoji',
+              projectLink: 'https://github.com/LadvikM/RandomEmoji',
+              projectDescription: 'Project for a friend to show my skills. His reaction: "Not bad." The task was to fetch three random emojis from API and print them out in console and test the code.'
+            }).then(() => {
+              this.showModal = false;
+              this.$store.dispatch('setAlert', {
+                alertMessage: 'Database reset completed',
+                isSuccess: true,
+              })
+            })
           })
         })
       })
-    })
-  })
-},
+    },
 
-logout()
-{
-  this.$store.dispatch('logout');
-}
-},
+    logout() {
+      this.$store.dispatch('logout');
+    }
+  },
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+@import "src/styles/colors";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 
 
-nav a {
-  font-weight: bold;
-  color: white;
-  font-size: x-large;
-  text-decoration: none;
-  display: block;
-  cursor: pointer;
-  padding: 5px;
-
-
-}
-
-nav a:hover {
-  color: #b8c480;
-}
-
-nav a.router-link-exact-active {
-  color: #fc9f5b; /*  Active link color*/
-
-}
-
-
 .navigation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  font-family: 'Lato', sans-serif;
+  display: none;
+
+}
+
+@media (min-width: 40rem) {
+
+  .navigation {
+    display: flex;
+    height: 100vh;
+    position: center;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    font-family: 'Lato', sans-serif;
+
+  }
 
 
+  nav a {
+    font-weight: bold;
+    color: $font-color;
+    font-size: 1.5rem;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    padding: 5px;
+
+
+  }
+
+  nav a:hover {
+    color: $link-hover;
+  }
+
+  nav a.router-link-exact-active {
+    color: $link-active; /*  Active link color*/
+
+  }
 }
 
 

@@ -131,59 +131,59 @@ export default {
 </script>
 
 <style scoped>
-.work-experience {
-  align-content: start;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-bottom: #909cc2 2px solid;
+/*.work-experience {*/
+/*  align-content: start;*/
+/*  background-color: rgba(255, 255, 255, 0.05);*/
+/*  border-bottom: #909cc2 2px solid;*/
 
-}
+/*}*/
 
-.location {
-  display: flex;
-  align-items: start;
-  margin: 1rem;
-}
+/*.location {*/
+/*  display: flex;*/
+/*  align-items: start;*/
+/*  margin: 1rem;*/
+/*}*/
 
-.company-name {
-  padding-top: 1rem;
-  margin: 1rem;
-  font-size: 2rem;
-  text-align: start;
-}
+/*.company-name {*/
+/*  padding-top: 1rem;*/
+/*  margin: 1rem;*/
+/*  font-size: 2rem;*/
+/*  text-align: start;*/
+/*}*/
 
-.position-date {
-  margin: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
+/*.position-date {*/
+/*  margin: 1rem;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  align-items: baseline;*/
+/*}*/
 
 
-.position {
-  padding-right: 1rem;
-  font-size: 1.5rem;
-  margin: 0;
-}
+/*.position {*/
+/*  padding-right: 1rem;*/
+/*  font-size: 1.5rem;*/
+/*  margin: 0;*/
+/*}*/
 
-.error {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
+/*.error {*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  display: flex;*/
+/*}*/
 
-.description {
-  width: 75%;
-  display: flex;
-  align-items: start;
-  margin: 1rem;
-  text-align: start;
-}
+/*.description {*/
+/*  width: 75%;*/
+/*  display: flex;*/
+/*  align-items: start;*/
+/*  margin: 1rem;*/
+/*  text-align: start;*/
+/*}*/
 
-.page-header {
-  padding: 2rem
-}
-.button {
-  margin-bottom: 0.5rem;
-}
+/*.page-header {*/
+/*  padding: 2rem*/
+/*}*/
+/*.button {*/
+/*  margin-bottom: 0.5rem;*/
+/*}*/
 
 </style>

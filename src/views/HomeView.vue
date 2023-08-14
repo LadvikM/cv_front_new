@@ -133,31 +133,13 @@ export default {
 }
 </script>
 <style scoped>
-
-
-h1 {
-  font-size: 1.5rem;
-
-}
-p {
-
-  font-size: 1rem;
-}
-
 .home {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  height: 100%;
   align-items: center;
-  justify-content: center;
-}
-@media(min-width: 40rem) {
-  h1 {
-    font-size: 4rem;
-  }
-  p {
-    font-size: 2rem;
-  }
 }
 
+@media (min-width: 40rem) {
+
+}
 </style>

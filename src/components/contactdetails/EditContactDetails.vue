@@ -76,8 +76,5 @@ export default {
 </script>
 
 <style scoped>
-.form-control {
-  margin: 0.5rem 0;
 
-}
 </style>

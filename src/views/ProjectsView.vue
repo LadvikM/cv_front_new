@@ -113,10 +113,10 @@ export default {
 }
 </script>
 <style scoped>
-.page-header {
-  padding: 2rem
-}
-.project {
-  background-color: rgba(255, 255, 255, 0.05);
-}
+/*.page-header {*/
+/*  padding: 2rem*/
+/*}*/
+/*.project {*/
+/*  background-color: rgba(255, 255, 255, 0.05);*/
+/*}*/
 </style>

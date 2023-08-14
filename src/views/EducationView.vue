@@ -150,57 +150,57 @@ export default {
 }
 </script>
 <style scoped>
-.page-header {
-  padding: 2rem
-}
+/*.page-header {*/
+/*  padding: 2rem*/
+/*}*/
 
-.education {
-  display: flex;
-  flex-direction: column;
-}
+/*.education {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
 
-.educations-element {
-  border-bottom: #909cc2 2px solid;
-  background: rgba(255, 255, 255, 0.05);
-}
+/*.educations-element {*/
+/*  border-bottom: #909cc2 2px solid;*/
+/*  background: rgba(255, 255, 255, 0.05);*/
+/*}*/
 
-.institution {
-  padding-top: 1rem;
-  margin: 1rem;
-  font-size: 2rem;
-  text-align: start;
-}
+/*.institution {*/
+/*  padding-top: 1rem;*/
+/*  margin: 1rem;*/
+/*  font-size: 2rem;*/
+/*  text-align: start;*/
+/*}*/
 
-.from-to,
-.location {
-  display: flex;
-  align-items: start;
-  margin: 1rem;
-}
+/*.from-to,*/
+/*.location {*/
+/*  display: flex;*/
+/*  align-items: start;*/
+/*  margin: 1rem;*/
+/*}*/
 
-.subject-degree {
-  margin: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
+/*.subject-degree {*/
+/*  margin: 1rem;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  align-items: baseline;*/
+/*}*/
 
-.subject {
-  padding-right: 1rem;
-  font-size: 1.5rem;
-  margin: 0;
-}
+/*.subject {*/
+/*  padding-right: 1rem;*/
+/*  font-size: 1.5rem;*/
+/*  margin: 0;*/
+/*}*/
 
-.description {
-  width: 75%;
-  display: flex;
-  align-items: start;
-  margin: 1rem;
-  text-align: start;
-}
+/*.description {*/
+/*  */
+/*  display: flex;*/
+/*  align-items: start;*/
+/*  margin: 1rem;*/
+/*  text-align: start;*/
+/*}*/
 
-.button {
-  margin-bottom: 0.5rem;
-}
+/*.button {*/
+/*  margin-bottom: 0.5rem;*/
+/*}*/
 </style>
 

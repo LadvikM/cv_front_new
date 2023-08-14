@@ -1,9 +1,11 @@
 <template>
   <div class="app">
-    <navigation-menu></navigation-menu>
+    <font-awesome-icon @click="toggleMenu" class="nav-menu-button" icon="bars"/>
+    <mobile-menu :show-menu="this.showMenu" @close-menu="toggleMenu"></mobile-menu>
+    <navigation-menu class="nav-menu"></navigation-menu>
     <router-view class="router" :key="componentKey" @forceRerender="forceRerender"></router-view>
-    <contact-details></contact-details>
-    <alert-dialog  :alert="this.alert" @showAlert="this.showAlert"></alert-dialog>
+    <contact-details class="contact-details"></contact-details>
+    <alert-dialog class="alert" :alert="this.alert" @showAlert="this.showAlert"></alert-dialog>
 
   </div>
 
@@ -12,16 +14,15 @@
 import NavigationMenu from "@/components/NavigationMenu.vue";
 import ContactDetails from "@/components/contactdetails/ContactsDetails.vue";
 import AlertDialog from "@/ui/AlertDialog.vue";
-
-
+import MobileMenu from "@/ui/MobileMenu.vue";
 
 
 export default {
-  components: {AlertDialog, ContactDetails, NavigationMenu},
+  components: {MobileMenu, AlertDialog, ContactDetails, NavigationMenu},
   data() {
     return {
-      showModal: false,
       componentKey: 0,
+      showMenu: false,
       alert: {
         show: false,
         alertMessage: '',
@@ -62,6 +63,9 @@ export default {
 
   },
   methods: {
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
 
     forceRerender() {
       this.componentKey += 1;
@@ -69,45 +73,71 @@ export default {
   },
 
 
-
 }
 </script>
-<style>
+<style lang="scss">
+
+@import "src/styles/colors";
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
-#app {
 
-  text-align: center;
-  color: white;
-
-}
 * {
   box-sizing: border-box;
 }
 
+.app {
+  font-family: 'Chakra Petch', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $background-color;
+  text-align: center;
+  color: $font-color;
+  justify-content: space-between;
+}
+.nav-menu-button {
+  align-self: flex-start;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  position: sticky;
+  top: 0;
+
+  background-color: $background-color;
+}
+.router {
+  margin: 0 10%;
+}
+.contact-details {
+  position: sticky;
+  bottom: 0;
+  background-color: $background-color;
+}
 body {
   margin: 0;
 }
-.router::-webkit-scrollbar {
-  display: none; /*  Hide scrollbar, but keep functionality*/
-}
-.router {
 
-  overflow-y: scroll;
-  width: 100%;
+@media (min-width: 40rem) {
 
-}
-
-.app {
-  font-family: 'Chakra Petch', sans-serif;
-  display: grid;
-  grid-template-columns: 20% 60% 20%; /*Column width*/
-  justify-items: center;
-  height: 100vh;
-
-  background-color: #2f4858;
-
-
-
+  .app {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .router {
+    width: 60%;
+    overflow-y: scroll;
+  }
+  .router::-webkit-scrollbar {
+    display: none; /*  Hide scrollbar, but keep functionality*/
+  }
+  .contact-details {
+    width: 20%;
+  }
+  .nav-menu {
+    width: 20%;
+  }
+  .nav-menu-button {
+    display: none;
+  }
 }
 
 

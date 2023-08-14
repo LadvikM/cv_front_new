@@ -1,6 +1,5 @@
 <template>
-<!--  TODO Make it pretty!-->
-<!--  TODO Make icons stay in position when clicked on email or phone-->
+
   <div class="container">
     <edit-contact-details v-if="isEdit" @cancel-form-submit="cancelSubmit"
                           :linkedin="contactDetails"></edit-contact-details>
@@ -24,14 +23,14 @@
 
       <li class="contact-item">
         <transition name="phone-email">
-          <p v-if="showPhone">{{this.contactDetails.phone }}</p>
+          <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
         </transition>
 
         <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
       </li>
       <li class="contact-item">
         <transition name="phone-email">
-          <p v-if="showEmail">{{this.contactDetails.email }}</p>
+          <p v-if="showEmail">{{ this.contactDetails.email }}</p>
         </transition>
         <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
       </li>
@@ -94,28 +93,27 @@ export default {
     },
 
 
-
-
   },
   beforeMount() {
     this.getContactDetails()
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+@import "src/styles/colors";
 
 .container {
-  width: 100%; /* Width 100% of parent element*/
   display: flex;
   justify-content: center; /*aligns content horizontally center*/
   align-items: center; /*aligns content vertically center*/
-
-
 }
 
 ul {
   font-size: 2rem;
+
 }
+
+
 .phone-email-enter-from,
 .phone-email-leave-to {
   opacity: 0;
@@ -130,29 +128,34 @@ ul {
 .phone-email-leave-active {
   transition: all 1s ease;
 }
+
 a:visited {
   color: white;
 }
-a:hover {
-  color: #b8c480;
-}
+
+
+a:hover,
 .contact-item:hover {
-  color: #b8c480;
+  color: $link-hover;
 }
-.contact-item p {
-  display: inline-block;
-  margin: 0;
-}
+
+
 .contact-item {
   cursor: pointer;
-  padding: 5px;
+  padding: 0.5rem;
 }
 
 .contact-items {
-  width: 100%;
-  margin: 0;
-
   list-style: none;
+  display: flex;
+}
+
+@media (min-width: 40rem) {
+
+  .contact-items {
+    flex-direction: column;
+
+  }
 }
 
 </style>

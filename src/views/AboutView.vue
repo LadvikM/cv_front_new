@@ -97,18 +97,6 @@ export default {
 img {
   width: 50%;
   height: auto;
-
-}
-.about {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  font-family: 'Chakra Petch', sans-serif;
-}
-p {
-  text-align: start;
 }
 
 </style>
