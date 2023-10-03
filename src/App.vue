@@ -1,5 +1,7 @@
 <template>
+  <div style="position: fixed;"></div> <!--Added to remove bug, that caused sticky element jump from bottom. https://www.stevefenton.co.uk/blog/2022/12/mobile-position-sticky-issue/-->
   <div class="app">
+
     <font-awesome-icon @click="toggleMenu" class="nav-menu-button" icon="bars"/>
     <mobile-menu :show-menu="this.showMenu" @close-menu="toggleMenu"></mobile-menu>
     <navigation-menu class="nav-menu"></navigation-menu>
@@ -88,7 +90,7 @@ export default {
   font-family: 'Chakra Petch', sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background-color: $background-color;
   text-align: center;
   color: $font-color;
@@ -123,6 +125,7 @@ body {
     height: 100vh;
   }
   .router {
+    justify-content: center;
     width: 60%;
     overflow-y: scroll;
   }

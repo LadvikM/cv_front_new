@@ -18,15 +18,15 @@
         <div class="educations-element" v-for="education in educations" :key="education.key">
           <h1 class="institution">{{ education.institution }}</h1>
           <p class="location">Location: {{ education.location }}</p>
-          <div v-for="subject in education.subjects" :key="subject.key">
-            <div class="subject-degree">
-              <h2 class="subject">{{ subject.subject }}</h2>
-              <p>{{ subject.degree }}</p>
+          <div class="subjects-container">
+            <div class="subjects" v-for="subject in education.subjects" :key="subject.key">
+              <h2 class="subject-name">{{ subject.subject }}</h2>
+              <p class="subject-degree">Degree: {{ subject.degree }}</p>
+              <p class="subject-date">{{ formatStartDate(subject.startDate) }} - {{ formatEndDate(subject.endDate) }}</p>
+              <p class="description">Description: {{ subject.description }}</p>
             </div>
-
-            <p class="from-to">{{ formatStartDate(subject.startDate) }} - {{ formatEndDate(subject.endDate) }}</p>
-            <p class="description">Description: {{ subject.description }}</p>
           </div>
+
           <div class="button" v-if="isLoggedIn">
             <BaseButton @click="editEducation(education.id)">Edit</BaseButton>
             <BaseButton @click="deleteEducation(education.id)">Delete</BaseButton>
@@ -149,7 +149,72 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+@import "src/styles/fontsizes";
+.page-header {
+  font-size: $h1-small-screen;
+}
+.educations-element {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: #909cc2 2px solid;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-areas: "school location"
+                      "subject subject";
+  text-align: start;
+  justify-items: start;
+  align-items: last baseline;
+}
+.institution {
+  margin: 1rem;
+  grid-area: school;
+}
+.location {
+  margin: 1rem;
+  grid-area: location;
+}
+.subjects-container {
+
+  grid-area: subject;
+}
+.subjects {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-areas: "subject date"
+                        "degree date"
+                        "description description";
+  justify-items: start;
+}
+.subject-name {
+  margin: 1rem;
+  grid-area: subject;
+}
+.subject-date {
+  margin: 1rem;
+  grid-area: date;
+}
+.subject-degree {
+  margin: 1rem;
+  grid-area: degree;
+}
+.description {
+  margin: 1rem;
+  grid-area: description;
+}
+
+@media (min-width: 40rem) {
+  .page-header {
+    font-size: $h1-large-screen;
+  }
+  .educations-element {
+    grid-template-columns: 80% 20%;
+    border-bottom: #909cc2 4px solid;
+  }
+  .subjects {
+    grid-template-columns: 80% 20%;
+  }
+}
 /*.page-header {*/
 /*  padding: 2rem*/
 /*}*/

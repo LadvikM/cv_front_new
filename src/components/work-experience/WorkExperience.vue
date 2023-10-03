@@ -6,12 +6,12 @@
        :key="workExperience.id">
     <h1 class="company-name">{{ workExperience.companyName }}</h1>
     <p class="location">Location: {{ workExperience.location }}</p>
-    <div v-for="position in workExperience.positions" :key="position.id">
-      <div class="position-date">
-        <h2 class="position">{{ position.positionName }}</h2>
-        <p class="from-to">{{ formatStartDate(position.startDate) }} - {{ formatEndDate(position.endDate) }}</p>
+    <div class="positions-container">
+      <div class="positions" v-for="position in workExperience.positions" :key="position.id">
+        <h2 class="position-name">{{ position.positionName }}</h2>
+        <p class="position-date">{{ formatStartDate(position.startDate) }} - {{ formatEndDate(position.endDate) }}</p>
+        <p class="description"> <b>Work Description:</b> {{ position.description }}</p>
       </div>
-      <p class="description"> Work Description: {{ position.description }}</p>
     </div>
     <base-button class="button" @click="editEntry(workExperience.id)" v-if="isLoggedIn">Edit</base-button>
     <base-button class="button" @click="deleteEntry(workExperience.id)" v-if="isLoggedIn">Delete</base-button>
@@ -130,60 +130,72 @@ export default {
 }
 </script>
 
-<style scoped>
-/*.work-experience {*/
-/*  align-content: start;*/
-/*  background-color: rgba(255, 255, 255, 0.05);*/
-/*  border-bottom: #909cc2 2px solid;*/
+<style scoped lang="scss">
+@import "src/styles/fontsizes";
+.page-header {
+  font-size: $h1-small-screen;
+}
+.work-experience {
 
-/*}*/
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: #909cc2 2px solid;
+  margin-bottom: 1rem;
 
-/*.location {*/
-/*  display: flex;*/
-/*  align-items: start;*/
-/*  margin: 1rem;*/
-/*}*/
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "company location"
+                      "position position";
+  text-align: start;
+  justify-items: start;
+  align-items: last baseline;
 
-/*.company-name {*/
-/*  padding-top: 1rem;*/
-/*  margin: 1rem;*/
-/*  font-size: 2rem;*/
-/*  text-align: start;*/
-/*}*/
+}
 
-/*.position-date {*/
-/*  margin: 1rem;*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  align-items: baseline;*/
-/*}*/
+.company-name {
+  grid-area: company;
+  margin: 1rem
+}
+
+.location {
+  margin: 1rem;
+  grid-area: location;
+
+}
+
+.positions-container {
+  grid-area: position;
+}
+.positions {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "position date"
+                    "description description";
+  justify-items: start;
+  align-items: last baseline;
+}
+
+.position-name {
+  margin: 1rem;
+  grid-area: position;
+}
+
+.position-date {
+  margin: 1rem;
+  grid-area: date;
+}
+
+.description {
+  margin: 1rem;
+  grid-area: description;
+  text-align: justify;
+}
 
 
-/*.position {*/
-/*  padding-right: 1rem;*/
-/*  font-size: 1.5rem;*/
-/*  margin: 0;*/
-/*}*/
+@media (min-width: 40rem) {
+  .work-experience {
+    border-bottom: #909cc2 4px solid;
+  }
+}
 
-/*.error {*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  display: flex;*/
-/*}*/
-
-/*.description {*/
-/*  width: 75%;*/
-/*  display: flex;*/
-/*  align-items: start;*/
-/*  margin: 1rem;*/
-/*  text-align: start;*/
-/*}*/
-
-/*.page-header {*/
-/*  padding: 2rem*/
-/*}*/
-/*.button {*/
-/*  margin-bottom: 0.5rem;*/
-/*}*/
 
 </style>

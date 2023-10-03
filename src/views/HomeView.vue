@@ -1,35 +1,34 @@
 <template>
-  <!--  TODO ADD validation-->
-  <!-- TODO ADD feedback on successful and unsuccessful responses-->
-  <!--  TODO Make it pretty-->
-
   <div class="home">
     <base-spinner v-if="isLoading"></base-spinner>
     <div class="content" v-if="!isFormView && !isLoading">
       <h1>{{ this.header }}</h1>
+
       <p v-html="shortDescription"></p>
     </div>
 
-    <div class="content">
-      <base-button v-if="this.buttonMode === 'add' && isLoggedIn" @click="toggleView">Add</base-button>
-      <base-button v-if="this.buttonMode === 'edit' && isLoggedIn && !isFormView" @click="toggleView">Edit</base-button>
-    </div>
-    <div class="content" v-if="isFormView">
+    <base-button v-if="this.buttonMode === 'add' && isLoggedIn" @click="toggleView">Add</base-button>
+    <base-button v-if="this.buttonMode === 'edit' && isLoggedIn && !isFormView" @click="toggleView">Edit</base-button>
 
-      <div>
+    <div class="edit-content" v-if="isFormView">
+
+      <div class="edit-header">
         <label for="header">Header</label>
         <input type="text" id="header" v-model="header">
       </div>
-
-      <div>
+      <div class="edit-content">
         <label for="short-description">Short Description</label>
         <textarea id="short-description" rows="5" v-model="shortDescription"></textarea>
       </div>
-      <button @click="toggleView">Cancel</button>
-      <button @click="this.submit">Submit</button>
+      <div class="edit-buttons">
+        <button @click="toggleView">Cancel</button>
+        <button @click="this.submit">Submit</button>
+      </div>
+
 
 
     </div>
+
   </div>
 
 </template>
@@ -132,14 +131,47 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+@import "src/styles/fontsizes";
+
 .home {
   display: flex;
+  flex-direction: column;
   height: 100%;
   align-items: center;
 }
 
+.content h1 {
+  font-size: $h1-small-screen;
+}
+
+.content p {
+  font-size: $p-small-screen;
+}
+.edit-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+.edit-header {
+  display: flex;
+  flex-direction: column;
+}
+
+
 @media (min-width: 40rem) {
+  .content h1 {
+    font-size: $h1-large-screen;
+  }
+
+  .content p {
+    font-size: $p-large-screen;
+  }
+  .edit-content {
+    display: flex;
+    flex-direction: column;
+    font-size: 3rem;
+  }
 
 }
 </style>

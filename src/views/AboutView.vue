@@ -1,6 +1,4 @@
 <template>
-<!--  TODO Add validation-->
-<!--  TODO Make it pretty.-->
   <div class="about">
     <div v-if="isFormView">
       <div>
@@ -93,10 +91,34 @@ export default {
 
 }
 </script>
-<style scoped>
-img {
-  width: 50%;
-  height: auto;
+<style scoped lang="scss">
+@import "src/styles/fontsizes";
+h1 {
+  font-size: $h1-small-screen;
 }
+p {
+  text-align: start;
+  font-size: $p-small-screen;
+}
+img {
+  margin-top: 2rem;
+  width: 70%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 0 0.8rem rgba(33, 28, 28, 0.82);
+}
+@media (min-width: 40rem) {
+  img {
 
+    width: 50%;
+    height: auto;
+    }
+  h1 {
+    font-size: $h1-large-screen;
+  }
+  p {
+    text-align: start;
+    font-size: $p-large-screen;
+  }
+}
 </style>

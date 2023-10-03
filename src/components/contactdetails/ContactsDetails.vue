@@ -3,40 +3,45 @@
   <div class="container">
     <edit-contact-details v-if="isEdit" @cancel-form-submit="cancelSubmit"
                           :linkedin="contactDetails"></edit-contact-details>
+    <div class="contact-items" v-if="!isEdit">
 
-    <ul class="contact-items" v-if="!isEdit">
-      <li class="contact-item" v-if="isLoggedIn">
+      <div class="contact-item" v-if="isLoggedIn">
         <a @click="toggleEdit">
           <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
         </a>
-      </li>
-      <li class="contact-item">
+      </div>
+
+      <div class="contact-item">
         <a :href="'https://www.linkedin.com/in/' + this.contactDetails.linkedin">
           <font-awesome-icon icon="fa-brands fa-linkedin-in"/>
         </a>
-      </li>
-      <li class="contact-item">
+      </div>
+
+      <div class="contact-item">
         <a :href="'https://github.com/' + this.contactDetails.github">
           <font-awesome-icon icon="fa-brands fa-github"/>
         </a>
-      </li>
-
-      <li class="contact-item">
-        <transition name="phone-email">
-          <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
-        </transition>
-
+      </div>
+      <div class="contact-item">
         <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
-      </li>
-      <li class="contact-item">
-        <transition name="phone-email">
-          <p v-if="showEmail">{{ this.contactDetails.email }}</p>
-        </transition>
+      </div>
+      <div class="contact-item">
         <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
-      </li>
-    </ul>
+      </div>
+
+    </div>
 
 
+    <div class="phone">
+      <transition name="phone-email">
+        <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
+      </transition>
+    </div>
+    <div class="email">
+      <transition name="phone-email">
+        <p v-if="showEmail">{{ this.contactDetails.email }}</p>
+      </transition>
+    </div>
   </div>
 </template>
 <script>
@@ -103,16 +108,31 @@ export default {
 @import "src/styles/colors";
 
 .container {
-  display: flex;
-  justify-content: center; /*aligns content horizontally center*/
-  align-items: center; /*aligns content vertically center*/
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "phone email"
+                       "icons icons";
+  align-content: center;
+  justify-content: center;
+
 }
 
-ul {
+.contact-items {
   font-size: 2rem;
-
+  grid-area: icons;
+  justify-content: center;
+  display: flex;
 }
 
+.phone {
+  font-size: 1rem;
+  grid-area: phone;
+}
+
+.email {
+  font-size: 1rem;
+  grid-area: email;
+}
 
 .phone-email-enter-from,
 .phone-email-leave-to {
@@ -145,17 +165,21 @@ a:hover,
   padding: 0.5rem;
 }
 
-.contact-items {
-  list-style: none;
-  display: flex;
-}
 
 @media (min-width: 40rem) {
+.container {
 
+
+  grid-template-areas: "phone phone"
+                       "email email"
+                       "icons icons";
+
+}
   .contact-items {
     flex-direction: column;
-
   }
+
+
 }
 
 </style>
