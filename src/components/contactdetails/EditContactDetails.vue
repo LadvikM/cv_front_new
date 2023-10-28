@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       enteredData: {
+        id: 1,
         linkedin: '',
         github: '',
         phone: '',
@@ -62,7 +63,7 @@ export default {
       this.$emit('cancelFormSubmit')
     },
     submitForm: function () {
-      this.$http.put("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json", this.enteredData
+      this.$http.put("/contact-details", this.enteredData
       ).then(response => {
         console.log(response.data)
       }).catch(error => {

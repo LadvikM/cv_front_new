@@ -92,7 +92,7 @@ export default {
       this.isEdit = false;
     },
     getContactDetails: function () {
-      this.$http.get("http://localhost:8080/contact-details")
+      this.$http.get("/contact-details")
           .then(response => {
             this.contactDetails = response.data;
           })
