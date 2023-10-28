@@ -87,6 +87,11 @@ export default {
 }
 
 .app {
+  background: url("../src/assets/DSCF1238.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-attachment: fixed;
   font-family: 'Chakra Petch', sans-serif;
   display: flex;
   flex-direction: column;
@@ -104,7 +109,8 @@ export default {
   position: sticky;
   top: 0;
 
-  background-color: $background-color;
+  //background-color: $background-color;
+
 }
 .router {
   margin: 0 10%;
@@ -112,7 +118,7 @@ export default {
 .contact-details {
   position: sticky;
   bottom: 0;
-  background-color: $background-color;
+  //background-color: $background-color;
 }
 body {
   margin: 0;
@@ -123,6 +129,9 @@ body {
   .app {
     flex-direction: row;
     height: 100vh;
+    background: url("../src/assets/DSCF1245.jpg");
+    background-size: cover;
+    background-position: center bottom 17%;
   }
   .router {
     justify-content: center;
@@ -145,4 +154,3 @@ body {
 
 
 </style>
-

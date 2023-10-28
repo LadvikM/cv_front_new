@@ -1,8 +1,10 @@
 <template>
+
   <div>
-    <p>Found bug? Want to give feedback? Don't like something? Feel free to leave me a message or find my contacts on
-      the right. </p>
+    <p>Found bug? Want to give feedback? Don't like something? Feel free to leave me a message or contact me by e-mail or by phone.</p>
+    <base-card>
     <form @submit.prevent="sendMessage">
+
       <div>
         <laber for="name">Name</laber>
         <input id="name" type="text" placeholder="Can be left empty" v-model="this.name">
@@ -16,16 +18,19 @@
         <textarea id="message" rows="8" v-model="this.message"></textarea>
       </div>
       <base-button>Send</base-button>
+
     </form>
+    </base-card>
   </div>
 </template>
 
 <script>
 import BaseButton from "@/ui/BaseButton.vue";
+import BaseCard from "@/ui/BaseCard.vue";
 
 export default {
   name: "ContactView",
-  components: {BaseButton},
+  components: {BaseCard, BaseButton},
   data() {
     return {
       name: '',
@@ -53,7 +58,24 @@ export default {
 </script>
 
 <style scoped>
+p {
+  font-size: 2rem;
+}
 
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+}
 
 
 </style>

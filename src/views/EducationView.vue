@@ -215,57 +215,6 @@ export default {
     grid-template-columns: 80% 20%;
   }
 }
-/*.page-header {*/
-/*  padding: 2rem*/
-/*}*/
 
-/*.education {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*}*/
-
-/*.educations-element {*/
-/*  border-bottom: #909cc2 2px solid;*/
-/*  background: rgba(255, 255, 255, 0.05);*/
-/*}*/
-
-/*.institution {*/
-/*  padding-top: 1rem;*/
-/*  margin: 1rem;*/
-/*  font-size: 2rem;*/
-/*  text-align: start;*/
-/*}*/
-
-/*.from-to,*/
-/*.location {*/
-/*  display: flex;*/
-/*  align-items: start;*/
-/*  margin: 1rem;*/
-/*}*/
-
-/*.subject-degree {*/
-/*  margin: 1rem;*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  align-items: baseline;*/
-/*}*/
-
-/*.subject {*/
-/*  padding-right: 1rem;*/
-/*  font-size: 1.5rem;*/
-/*  margin: 0;*/
-/*}*/
-
-/*.description {*/
-/*  */
-/*  display: flex;*/
-/*  align-items: start;*/
-/*  margin: 1rem;*/
-/*  text-align: start;*/
-/*}*/
-
-/*.button {*/
-/*  margin-bottom: 0.5rem;*/
-/*}*/
 </style>
 

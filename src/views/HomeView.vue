@@ -2,7 +2,7 @@
   <div class="home">
     <base-spinner v-if="isLoading"></base-spinner>
     <div class="content" v-if="!isFormView && !isLoading">
-      <h1>{{ this.header }}</h1>
+      <h1 class="page-header">{{ this.header }}</h1>
 
       <p v-html="shortDescription"></p>
     </div>
@@ -160,7 +160,7 @@ export default {
 
 
 @media (min-width: 40rem) {
-  .content h1 {
+  .page-header {
     font-size: $h1-large-screen;
   }
 

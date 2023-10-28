@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="work">
       <base-button @click="toggleForm" v-if="isLoggedIn">Add Work Experience</base-button>
       <work-experience-form v-if="showForm" @workExperienceSubmitted="toggleForm"></work-experience-form>
       <work-experience v-else :key="componentKey" @force-rerender="forceRerender" @edit-entry="showEdit"></work-experience>

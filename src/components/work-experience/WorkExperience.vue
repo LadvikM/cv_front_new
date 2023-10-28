@@ -192,6 +192,9 @@ export default {
 
 
 @media (min-width: 40rem) {
+  .page-header {
+    font-size: $h1-large-screen;
+  }
   .work-experience {
     border-bottom: #909cc2 4px solid;
   }

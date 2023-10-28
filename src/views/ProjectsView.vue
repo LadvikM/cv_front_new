@@ -11,18 +11,22 @@
       <div v-if="isFormView">
         <projects-form></projects-form>
       </div>
-      <div class="page-header">
-        <h1>Overview of my projects</h1>
-      </div>
-      <div class="project" v-for="project in projects" :key="project.key">
-        <div v-if="!isFormView">
-          <h1 class="project-name">{{ project.projectName }}</h1>
-          <a :href="project.projectLink"><base-button>See code</base-button></a>
-          <p>{{ project.projectDescription }}</p>
-          <base-button v-if="isLoggedIn" @click="deleteProject(project.id)">Delete</base-button>
-          <base-button v-if="isLoggedIn" @click="editProject(project.id)">Edit</base-button>
+      <div v-if="!isFormView">
+        <div>
+          <h1 class="page-header">Projects overview</h1>
         </div>
+        <div class="project" v-for="project in projects" :key="project.key">
+          <div >
+            <h1 class="project-name">{{ project.projectName }}</h1>
+            <a :href="project.projectLink"><base-button>Code on Github</base-button></a>
+            <p class="project-description">{{ project.projectDescription }}</p>
+            <base-button v-if="isLoggedIn" @click="deleteProject(project.id)">Delete</base-button>
+            <base-button v-if="isLoggedIn" @click="editProject(project.id)">Edit</base-button>
+          </div>
+        </div>
+
       </div>
+
     </div>
   </div>
 </template>
@@ -112,11 +116,34 @@ export default {
   }
 }
 </script>
-<style scoped>
-/*.page-header {*/
-/*  padding: 2rem*/
-/*}*/
-/*.project {*/
-/*  background-color: rgba(255, 255, 255, 0.05);*/
-/*}*/
+<style scoped lang="scss">
+@import "src/styles/fontsizes";
+.project {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: #909cc2 2px solid;
+  margin-bottom: 1rem;
+}
+.page-header {
+
+  font-size: $h1-small-screen;
+}
+.project-description {
+  margin: 1rem;
+  font-size: $p-description-small-screen;
+}
+.project-name {
+  margin: 1rem;
+  font-size: 1.8rem;
+}
+@media (min-width: 40rem) {
+  .page-header {
+    font-size: $h1-large-screen;
+  }
+  .project-description {
+    font-size: $p-description-large-screen;
+  }
+  .project-name {
+    font-size: 2rem;
+  }
+}
 </style>

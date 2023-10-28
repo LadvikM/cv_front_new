@@ -93,7 +93,7 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "src/styles/fontsizes";
-h1 {
+.page-header {
   font-size: $h1-small-screen;
 }
 p {

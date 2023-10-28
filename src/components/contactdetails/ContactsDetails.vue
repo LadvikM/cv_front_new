@@ -114,7 +114,8 @@ export default {
                        "icons icons";
   align-content: center;
   justify-content: center;
-
+  background-color: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 -1rem 10px rgba(0, 0, 0, 0.75);
 }
 
 .contact-items {
@@ -154,10 +155,7 @@ a:visited {
 }
 
 
-a:hover,
-.contact-item:hover {
-  color: $link-hover;
-}
+
 
 
 .contact-item {
@@ -173,13 +171,17 @@ a:hover,
   grid-template-areas: "phone phone"
                        "email email"
                        "icons icons";
-
+  background: none;
+  box-shadow: none;
 }
   .contact-items {
     flex-direction: column;
   }
+  a:hover,
+  .contact-item:hover {
+    color: $link-hover;
+  }
 
 
 }
-
 </style>
