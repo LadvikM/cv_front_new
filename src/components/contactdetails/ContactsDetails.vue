@@ -3,46 +3,49 @@
   <div class="container">
     <edit-contact-details v-if="isEdit" @cancel-form-submit="cancelSubmit"
                           :linkedin="contactDetails"></edit-contact-details>
-    <div class="contact-items" v-if="!isEdit">
+    <div class="contact-items" v-for="contactDetail in contactDetails" :key="contactDetail.id">
+      <div  v-if="!isEdit">
 
-      <div class="contact-item" v-if="isLoggedIn">
-        <a @click="toggleEdit">
-          <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
-        </a>
+        <div class="contact-item" v-if="isLoggedIn">
+          <a @click="toggleEdit">
+            <font-awesome-icon icon="fa-solid fa-pen-to-square"/>
+          </a>
+        </div>
+
+        <div class="contact-item">
+          <a :href="'https://www.linkedin.com/in/' + contactDetail.linkedin">
+            <font-awesome-icon icon="fa-brands fa-linkedin-in"/>
+          </a>
+        </div>
+
+        <div class="contact-item">
+          <a :href="'https://github.com/' + contactDetail.github">
+            <font-awesome-icon icon="fa-brands fa-github"/>
+          </a>
+        </div>
+        <div class="contact-item">
+          <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
+        </div>
+        <div class="contact-item">
+          <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
+        </div>
+
       </div>
 
-      <div class="contact-item">
-        <a :href="'https://www.linkedin.com/in/' + this.contactDetails.linkedin">
-          <font-awesome-icon icon="fa-brands fa-linkedin-in"/>
-        </a>
-      </div>
 
-      <div class="contact-item">
-        <a :href="'https://github.com/' + this.contactDetails.github">
-          <font-awesome-icon icon="fa-brands fa-github"/>
-        </a>
+      <div class="phone">
+        <transition name="phone-email">
+          <p v-if="showPhone">{{ contactDetail.phone }}</p>
+        </transition>
       </div>
-      <div class="contact-item">
-        <font-awesome-icon icon="phone" @click="showPhone = !showPhone"/>
+      <div class="email">
+        <transition name="phone-email">
+          <p v-if="showEmail">{{ contactDetail.email }}</p>
+        </transition>
       </div>
-      <div class="contact-item">
-        <font-awesome-icon icon="at" @click="showEmail = !showEmail"/>
-      </div>
-
-    </div>
-
-
-    <div class="phone">
-      <transition name="phone-email">
-        <p v-if="showPhone">{{ this.contactDetails.phone }}</p>
-      </transition>
-    </div>
-    <div class="email">
-      <transition name="phone-email">
-        <p v-if="showEmail">{{ this.contactDetails.email }}</p>
-      </transition>
     </div>
   </div>
+
 </template>
 <script>
 
@@ -58,14 +61,15 @@ export default {
       showPhone: false,
       showEmail: false,
 
-      contactDetails:
-          {
-            id: '',
-            linkedin: '',
-            github: '',
-            phone: '',
-            email: '',
-          },
+      contactDetails: [
+        {
+          id: '',
+          linkedin: '',
+          github: '',
+          phone: '',
+          email: '',
+        },
+      ]
 
 
     }
@@ -88,7 +92,7 @@ export default {
       this.isEdit = false;
     },
     getContactDetails: function () {
-      this.$http.get("https://cv-database-2e255-default-rtdb.europe-west1.firebasedatabase.app/contact-details.json")
+      this.$http.get("http://localhost:8080/contact-details")
           .then(response => {
             this.contactDetails = response.data;
           })
@@ -155,9 +159,6 @@ a:visited {
 }
 
 
-
-
-
 .contact-item {
   cursor: pointer;
   padding: 0.5rem;
@@ -165,15 +166,15 @@ a:visited {
 
 
 @media (min-width: 40rem) {
-.container {
+  .container {
 
 
-  grid-template-areas: "phone phone"
+    grid-template-areas: "phone phone"
                        "email email"
                        "icons icons";
-  background: none;
-  box-shadow: none;
-}
+    background: none;
+    box-shadow: none;
+  }
   .contact-items {
     flex-direction: column;
   }
